@@ -33,6 +33,21 @@ interface ResultsDisplayProps {
     totalScore: number
     percentile: number
     tier: 'exceptional' | 'strong' | 'competitive' | 'below-average' | 'low'
+    // WARS scoring
+    warsScore?: number
+    warsLevel?: 'S' | 'A' | 'B' | 'C' | 'D' | 'E'
+    warsBreakdown?: {
+      stats: number
+      research: number
+      clinical: number
+      shadowing: number
+      volunteering: number
+      leadership: number
+      miscellaneous: number
+      undergraduate: number
+      urm: number
+      trend: number
+    }
   }
   schoolList: {
     reach: any[]

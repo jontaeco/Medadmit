@@ -93,6 +93,9 @@ export default async function ResultPage({ params }: ResultPageProps) {
           totalScore: scoreBreakdown?.totalScore || prediction.applicant_score || 0,
           percentile: scoreBreakdown?.percentile || 0,
           tier: scoreBreakdown?.tier || 'competitive',
+          warsScore: scoreBreakdown?.warsScore,
+          warsLevel: scoreBreakdown?.warsLevel,
+          warsBreakdown: scoreBreakdown?.warsBreakdown,
         }}
         schoolList={{
           reach: schoolResults?.reach || [],
