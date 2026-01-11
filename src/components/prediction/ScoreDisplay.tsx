@@ -3,6 +3,26 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 
+// Score maximums - must match applicant-score.ts calculations
+const SCORE_MAXIMUMS = {
+  total: 1000,
+  academic: {
+    total: 720,
+    gpa: 360,
+    mcat: 360,
+  },
+  experience: {
+    total: 330,
+    clinical: 90,
+    research: 90,
+    volunteering: 60,
+    leadership: 35,
+    shadowing: 25,
+    teaching: 30,
+  },
+  wars: 121,
+}
+
 interface ScoreBreakdown {
   academicScore: number
   academicDetails: {
@@ -18,6 +38,7 @@ interface ScoreBreakdown {
     volunteerContribution: number
     leadershipContribution: number
     shadowingContribution: number
+    teachingContribution?: number
   }
   demographicAdjustment: number
   redFlagPenalty: number
@@ -141,16 +162,16 @@ export function ScoreDisplay({ score }: ScoreDisplayProps) {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-lg">Academic</CardTitle>
-            <CardDescription>{score.academicScore} / 600 points</CardDescription>
+            <CardDescription>{score.academicScore} / {SCORE_MAXIMUMS.academic.total} points</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             <div>
               <div className="flex justify-between text-sm mb-1">
                 <span>GPA</span>
-                <span>{score.academicDetails.gpaContribution} / 300</span>
+                <span>{score.academicDetails.gpaContribution} / {SCORE_MAXIMUMS.academic.gpa}</span>
               </div>
               <Progress
-                value={(score.academicDetails.gpaContribution / 300) * 100}
+                value={(score.academicDetails.gpaContribution / SCORE_MAXIMUMS.academic.gpa) * 100}
                 className="h-2"
               />
               <p className="text-xs text-slate-500 mt-1">
@@ -160,10 +181,10 @@ export function ScoreDisplay({ score }: ScoreDisplayProps) {
             <div>
               <div className="flex justify-between text-sm mb-1">
                 <span>MCAT</span>
-                <span>{score.academicDetails.mcatContribution} / 300</span>
+                <span>{score.academicDetails.mcatContribution} / {SCORE_MAXIMUMS.academic.mcat}</span>
               </div>
               <Progress
-                value={(score.academicDetails.mcatContribution / 300) * 100}
+                value={(score.academicDetails.mcatContribution / SCORE_MAXIMUMS.academic.mcat) * 100}
                 className="h-2"
               />
               <p className="text-xs text-slate-500 mt-1">
@@ -177,33 +198,38 @@ export function ScoreDisplay({ score }: ScoreDisplayProps) {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-lg">Experiences</CardTitle>
-            <CardDescription>{score.experienceScore} / 250 points</CardDescription>
+            <CardDescription>{score.experienceScore} / {SCORE_MAXIMUMS.experience.total} points</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
             <ScoreBar
               label="Clinical"
               value={score.experienceDetails.clinicalContribution}
-              max={75}
+              max={SCORE_MAXIMUMS.experience.clinical}
             />
             <ScoreBar
               label="Research"
               value={score.experienceDetails.researchContribution}
-              max={75}
+              max={SCORE_MAXIMUMS.experience.research}
             />
             <ScoreBar
               label="Volunteering"
               value={score.experienceDetails.volunteerContribution}
-              max={50}
+              max={SCORE_MAXIMUMS.experience.volunteering}
             />
             <ScoreBar
               label="Leadership"
               value={score.experienceDetails.leadershipContribution}
-              max={30}
+              max={SCORE_MAXIMUMS.experience.leadership}
             />
             <ScoreBar
               label="Shadowing"
               value={score.experienceDetails.shadowingContribution}
-              max={20}
+              max={SCORE_MAXIMUMS.experience.shadowing}
+            />
+            <ScoreBar
+              label="Teaching"
+              value={score.experienceDetails.teachingContribution ?? 0}
+              max={SCORE_MAXIMUMS.experience.teaching}
             />
           </CardContent>
         </Card>

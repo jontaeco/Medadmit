@@ -81,9 +81,16 @@ export function runSimulation(config: SimulationConfig): SimulationResult {
       // Step 1: Did we get an interview?
       // The probability already accounts for getting to interview stage
       // We'll model this as: P(interview) = P(acceptance) / P(acceptance|interview)
+      //
+      // USE PER-SCHOOL INTERVIEW-TO-ACCEPTANCE RATE when available
+      // This is critical - schools have VERY different rates:
+      // - Harvard: 26% (interview many, accept few)
+      // - Michigan: 82% (interview few, accept most)
+      // - NYU: 21% (very selective post-interview)
+      const schoolRate = schoolProb.school.interviewToAcceptanceRate ?? interviewToAcceptanceRate
       const interviewProbability = Math.min(
         0.95,
-        schoolProb.probability / interviewToAcceptanceRate
+        schoolProb.probability / schoolRate
       )
 
       const gotInterview = rng.next() < interviewProbability
@@ -94,9 +101,8 @@ export function runSimulation(config: SimulationConfig): SimulationResult {
         schoolInterviewCounts[schoolId]++
 
         // Step 2: Given interview, did we get accepted?
-        // Use the conditional probability
-        const acceptanceGivenInterview =
-          schoolProb.probability / interviewProbability
+        // Use the school's actual interview-to-acceptance rate
+        const acceptanceGivenInterview = schoolRate
 
         const gotAccepted = rng.next() < acceptanceGivenInterview
 
@@ -126,24 +132,46 @@ export function runSimulation(config: SimulationConfig): SimulationResult {
     }
   }
 
-  // Find modal outcome (most common pattern)
+  // Find modal, optimistic, and pessimistic outcomes
   let modalKey = ''
   let maxFrequency = 0
+  let optimisticKey = ''
+  let maxAcceptances = 0
+  let pessimisticKey = ''
+  let minAcceptances = Infinity
+
   for (const [key, data] of outcomePatterns) {
+    // Modal: most frequent
     if (data.count > maxFrequency) {
       maxFrequency = data.count
       modalKey = key
+    }
+
+    // Optimistic: most acceptances
+    const acceptanceCount = data.acceptances.length
+    if (acceptanceCount > maxAcceptances) {
+      maxAcceptances = acceptanceCount
+      optimisticKey = key
+    }
+
+    // Pessimistic: least acceptances
+    if (acceptanceCount < minAcceptances) {
+      minAcceptances = acceptanceCount
+      pessimisticKey = key
     }
   }
 
   const modalPattern = outcomePatterns.get(modalKey)
   const modalAcceptances = modalKey ? modalKey.split(',').filter(Boolean) : []
+  const optimisticPattern = outcomePatterns.get(optimisticKey)
+  const optimisticAcceptances = optimisticKey ? optimisticKey.split(',').filter(Boolean) : []
+  const pessimisticPattern = outcomePatterns.get(pessimisticKey)
+  const pessimisticAcceptances = pessimisticKey ? pessimisticKey.split(',').filter(Boolean) : []
 
-  // For modal interviews, we need to determine which schools gave interviews in the modal outcome
-  // Use schools that gave interviews in > 50% of simulations as the modal interviews
-  const modalInterviews = schoolList
-    .filter(s => schoolInterviewCounts[s.school.id] > iterations * 0.5)
-    .map(s => s.school.id)
+  // For modal/optimistic/pessimistic interviews, use schools involved in those outcomes
+  const modalInterviews = modalPattern?.interviews || []
+  const optimisticInterviews = optimisticPattern?.interviews || []
+  const pessimisticInterviews = pessimisticPattern?.interviews || []
 
   // Build per-school outcomes
   const perSchoolOutcomes: PerSchoolOutcome[] = schoolList.map((sp) => ({
@@ -163,6 +191,24 @@ export function runSimulation(config: SimulationConfig): SimulationResult {
     schoolsWithInterview: modalInterviews,
     schoolsWithAcceptance: modalAcceptances,
     frequency: maxFrequency / iterations,
+  }
+
+  // Build optimistic outcome
+  const optimisticOutcome: ModalOutcome = {
+    totalInterviews: optimisticInterviews.length,
+    totalAcceptances: optimisticAcceptances.length,
+    schoolsWithInterview: optimisticInterviews,
+    schoolsWithAcceptance: optimisticAcceptances,
+    frequency: (optimisticPattern?.count || 0) / iterations,
+  }
+
+  // Build pessimistic outcome
+  const pessimisticOutcome: ModalOutcome = {
+    totalInterviews: pessimisticInterviews.length,
+    totalAcceptances: pessimisticAcceptances.length,
+    schoolsWithInterview: pessimisticInterviews,
+    schoolsWithAcceptance: pessimisticAcceptances,
+    frequency: (pessimisticPattern?.count || 0) / iterations,
   }
 
   // Calculate statistics (sort for percentile calculations)
@@ -219,6 +265,8 @@ export function runSimulation(config: SimulationConfig): SimulationResult {
     rawAcceptanceCounts: acceptanceCounts,
     perSchoolOutcomes,
     modalOutcome,
+    optimisticOutcome,
+    pessimisticOutcome,
   }
 }
 
@@ -266,14 +314,17 @@ export function calculateExpectedAcceptances(
 
 /**
  * Estimate interview count (theoretical)
+ * Uses per-school interview-to-acceptance rates when available
  */
 export function calculateExpectedInterviews(
   schoolList: SchoolProbability[],
-  interviewToAcceptanceRate: number = 0.45
+  fallbackRate: number = 0.45
 ): number {
   // Estimate: each acceptance probability implies interview probability
+  // Use per-school rates when available for more accurate estimation
   return schoolList.reduce((sum, school) => {
-    const interviewProb = Math.min(0.95, school.probability / interviewToAcceptanceRate)
+    const schoolRate = school.school.interviewToAcceptanceRate ?? fallbackRate
+    const interviewProb = Math.min(0.95, school.probability / schoolRate)
     return sum + interviewProb
   }, 0)
 }

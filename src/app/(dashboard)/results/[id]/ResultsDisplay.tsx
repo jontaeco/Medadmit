@@ -74,6 +74,8 @@ interface ResultsDisplayProps {
     }
     perSchoolOutcomes?: PerSchoolOutcome[]
     modalOutcome?: ModalOutcome
+    optimisticOutcome?: ModalOutcome
+    pessimisticOutcome?: ModalOutcome
   }
   globalProbability: number
   confidenceRange: {
@@ -197,6 +199,8 @@ export function ResultsDisplay({
             <SankeyDiagram
               schoolList={schoolList}
               modalOutcome={simulation.modalOutcome!}
+              optimisticOutcome={simulation.optimisticOutcome}
+              pessimisticOutcome={simulation.pessimisticOutcome}
               perSchoolOutcomes={simulation.perSchoolOutcomes!}
               applicantProfile={applicantProfile!}
             />

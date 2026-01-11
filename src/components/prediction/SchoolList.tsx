@@ -20,6 +20,7 @@ interface SchoolProbability {
     tuitionOutOfState: number
     warsTier?: number
     isLowYield?: boolean
+    interviewToAcceptanceRate?: number
   }
   probability: number
   probabilityLower: number
@@ -242,7 +243,12 @@ function SchoolGrid({ schools, showTierHeaders = false }: { schools: SchoolProba
 function SchoolCard({ schoolProb }: { schoolProb: SchoolProbability }) {
   const { school, probability, fit, category } = schoolProb
   const colors = categoryColors[category]
-  const probabilityPercent = Math.round(probability * 100)
+  const acceptancePercent = Math.round(probability * 100)
+
+  // Calculate interview probability using school's actual interview-to-acceptance rate
+  const schoolRate = school.interviewToAcceptanceRate ?? 0.45
+  const interviewProb = Math.min(0.95, probability / schoolRate)
+  const interviewPercent = Math.round(interviewProb * 100)
 
   return (
     <div
@@ -296,8 +302,22 @@ function SchoolCard({ schoolProb }: { schoolProb: SchoolProbability }) {
           <span className={`text-xs px-2 py-1 rounded ${colors.badge} capitalize`}>
             {category}
           </span>
-          <p className="text-2xl font-bold mt-2">{probabilityPercent}%</p>
-          <p className="text-xs text-slate-500">acceptance chance</p>
+          {/* Interview and Acceptance chances side by side */}
+          <div className="flex gap-3 mt-2 justify-end">
+            <div className="text-center">
+              <p className="text-xl font-bold text-blue-600">{interviewPercent}%</p>
+              <p className="text-xs text-slate-500">interview</p>
+            </div>
+            <div className="text-center">
+              <p className="text-xl font-bold text-green-600">{acceptancePercent}%</p>
+              <p className="text-xs text-slate-500">acceptance</p>
+            </div>
+          </div>
+          {school.interviewToAcceptanceRate && (
+            <p className="text-xs text-slate-400 mt-1">
+              {Math.round(school.interviewToAcceptanceRate * 100)}% int→acc rate
+            </p>
+          )}
         </div>
       </div>
       <div className="mt-3">

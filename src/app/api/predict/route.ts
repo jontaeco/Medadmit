@@ -178,6 +178,8 @@ export async function POST(request: NextRequest) {
         // Sankey diagram data
         perSchoolOutcomes: prediction.simulation.perSchoolOutcomes,
         modalOutcome: prediction.simulation.modalOutcome,
+        optimisticOutcome: prediction.simulation.optimisticOutcome,
+        pessimisticOutcome: prediction.simulation.pessimisticOutcome,
       },
       computed_at: prediction.computedAt,
       compute_time_ms: 100, // Mock compute time
@@ -224,6 +226,8 @@ export async function POST(request: NextRequest) {
           },
           perSchoolOutcomes: prediction.simulation.perSchoolOutcomes,
           modalOutcome: prediction.simulation.modalOutcome,
+          optimisticOutcome: prediction.simulation.optimisticOutcome,
+          pessimisticOutcome: prediction.simulation.pessimisticOutcome,
         },
         warnings: prediction.warnings,
         caveats: prediction.caveats,

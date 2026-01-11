@@ -134,6 +134,9 @@ export interface SchoolProbability {
     demographicAdjustment: number
     missionFitBonus: number
     finalProbability: number
+    // Calibration fields (added after calibration is applied)
+    calibrationFactor?: number
+    rawProbability?: number
   }
 
   // Fit analysis
@@ -207,6 +210,8 @@ export interface SimulationResult {
   // Per-school outcomes for Sankey visualization
   perSchoolOutcomes: PerSchoolOutcome[]
   modalOutcome: ModalOutcome
+  optimisticOutcome: ModalOutcome
+  pessimisticOutcome: ModalOutcome
 }
 
 // Per-school outcome tracking for Sankey diagram

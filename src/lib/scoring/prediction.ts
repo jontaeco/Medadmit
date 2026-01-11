@@ -19,6 +19,7 @@ import { calculateApplicantScore, getScoreInterpretation } from './applicant-sco
 import { calculateAllSchoolProbabilities } from './school-probability'
 import { generateSchoolList, type SchoolListOptions } from './school-list'
 import { runSimulation, getSimulationSummary } from './monte-carlo'
+import { calibrateSchoolList, getCalibrationSummary } from './calibration'
 import { getAcceptanceRate } from '@/lib/data'
 
 const MODEL_VERSION = '1.0.0'
@@ -73,8 +74,34 @@ export function generatePrediction(
     upper: Math.min(0.95, globalAcceptanceProbability * (1.1 + scoreRatio * 0.2)),
   }
 
-  // 3. Generate school list
-  const schoolList = generateSchoolList(applicant, schoolListOptions)
+  // 3. Generate school list (raw probabilities)
+  const rawSchoolList = generateSchoolList(applicant, schoolListOptions)
+
+  // 4. Apply calibration to produce realistic expected acceptances
+  const allRawSchools = [
+    ...rawSchoolList.reach,
+    ...rawSchoolList.target,
+    ...rawSchoolList.safety,
+  ]
+  const calibrationResult = calibrateSchoolList(applicant, allRawSchools)
+
+  // Log calibration for debugging (can be removed in production)
+  console.log('[Prediction] Calibration applied:')
+  console.log(getCalibrationSummary(calibrationResult))
+
+  // Rebuild school list with calibrated probabilities
+  const calibratedSchools = calibrationResult.schools
+  const schoolList = {
+    reach: calibratedSchools.filter(s => s.category === 'reach'),
+    target: calibratedSchools.filter(s => s.category === 'target'),
+    safety: calibratedSchools.filter(s => s.category === 'safety'),
+    summary: {
+      totalSchools: calibratedSchools.length,
+      expectedInterviews: calibrationResult.metrics.expectedAcceptances / 0.45, // Approximate
+      expectedAcceptances: calibrationResult.metrics.expectedAcceptances,
+      probabilityOfAtLeastOne: calibrationResult.metrics.probabilityOfAtLeastOne,
+    }
+  }
 
   // Add caveats based on school list
   if (schoolList.safety.length < 3) {
@@ -88,19 +115,14 @@ export function generatePrediction(
     )
   }
 
-  // 4. Run full simulation
-  const allSchools = [
-    ...schoolList.reach,
-    ...schoolList.target,
-    ...schoolList.safety,
-  ]
+  // 5. Run full simulation with CALIBRATED probabilities
   const simulation = runSimulation({
     iterations: 10000,
-    schoolList: allSchools,
+    schoolList: calibratedSchools,
     interviewToAcceptanceRate: 0.45,
   })
 
-  // 5. Add standard caveats
+  // 6. Add standard caveats
   caveats.push(
     'Predictions are based on historical data and statistical models. Individual outcomes may vary.'
   )

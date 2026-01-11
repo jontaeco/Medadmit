@@ -130,6 +130,11 @@ export interface SchoolProfile {
   totalMatriculated: number
   classSize: number
 
+  // Admission Funnel Rates (from admit.org/MSAR)
+  interviewRate?: number  // totalInterviewed / totalApplicants (application → interview)
+  interviewToAcceptanceRate?: number  // totalAccepted / totalInterviewed (interview → acceptance)
+  admitOrgRank?: number  // Ranking from admit.org (based on selectivity)
+
   // State Preference
   pctInStateMatriculants: number
   pctOutOfStateMatriculants: number

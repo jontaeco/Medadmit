@@ -122,6 +122,8 @@ export default async function ResultPage({ params }: ResultPageProps) {
           },
           perSchoolOutcomes: simulationResults?.perSchoolOutcomes,
           modalOutcome: simulationResults?.modalOutcome,
+          optimisticOutcome: simulationResults?.optimisticOutcome,
+          pessimisticOutcome: simulationResults?.pessimisticOutcome,
         }}
         globalProbability={prediction.global_acceptance_probability || 0}
         confidenceRange={{
