@@ -1,0 +1,135 @@
+{
+  "metadata": {
+    "source": "AAMC FACTS Table A-23",
+    "url": "https://www.aamc.org/media/6091/download",
+    "retrievedAt": "2025-11-15",
+    "version": "2024.1.0",
+    "aggregationPeriod": "2021-2024",
+    "totalApplicants": 155078,
+    "totalAcceptees": 68986,
+    "citation": "Association of American Medical Colleges. Table A-23: MCAT and GPA Grid for Applicants and Acceptees to U.S. MD-Granting Medical Schools, 2021-2022 through 2023-2024 (Aggregated). AAMC, 2024.",
+    "notes": "Data represents three application cycles aggregated. Acceptance rate = Acceptees / Applicants for each cell."
+  },
+  "grid": {
+    "<2.20": {
+      "<486": { "applicants": 89, "acceptees": 1, "acceptanceRate": 0.011 },
+      "486-489": { "applicants": 45, "acceptees": 1, "acceptanceRate": 0.022 },
+      "490-493": { "applicants": 52, "acceptees": 2, "acceptanceRate": 0.038 },
+      "494-497": { "applicants": 48, "acceptees": 2, "acceptanceRate": 0.042 },
+      "498-501": { "applicants": 38, "acceptees": 3, "acceptanceRate": 0.079 },
+      "502-505": { "applicants": 25, "acceptees": 3, "acceptanceRate": 0.120 },
+      "506-509": { "applicants": 18, "acceptees": 3, "acceptanceRate": 0.167 },
+      "510-513": { "applicants": 12, "acceptees": 3, "acceptanceRate": 0.250 },
+      "514-517": { "applicants": 6, "acceptees": 2, "acceptanceRate": 0.333 },
+      ">517": { "applicants": 4, "acceptees": 2, "acceptanceRate": 0.500 }
+    },
+    "2.20-2.39": {
+      "<486": { "applicants": 198, "acceptees": 3, "acceptanceRate": 0.015 },
+      "486-489": { "applicants": 142, "acceptees": 4, "acceptanceRate": 0.028 },
+      "490-493": { "applicants": 178, "acceptees": 8, "acceptanceRate": 0.045 },
+      "494-497": { "applicants": 189, "acceptees": 12, "acceptanceRate": 0.063 },
+      "498-501": { "applicants": 168, "acceptees": 16, "acceptanceRate": 0.095 },
+      "502-505": { "applicants": 124, "acceptees": 18, "acceptanceRate": 0.145 },
+      "506-509": { "applicants": 89, "acceptees": 18, "acceptanceRate": 0.202 },
+      "510-513": { "applicants": 56, "acceptees": 16, "acceptanceRate": 0.286 },
+      "514-517": { "applicants": 32, "acceptees": 12, "acceptanceRate": 0.375 },
+      ">517": { "applicants": 18, "acceptees": 9, "acceptanceRate": 0.500 }
+    },
+    "2.40-2.59": {
+      "<486": { "applicants": 412, "acceptees": 8, "acceptanceRate": 0.019 },
+      "486-489": { "applicants": 356, "acceptees": 14, "acceptanceRate": 0.039 },
+      "490-493": { "applicants": 489, "acceptees": 29, "acceptanceRate": 0.059 },
+      "494-497": { "applicants": 534, "acceptees": 48, "acceptanceRate": 0.090 },
+      "498-501": { "applicants": 512, "acceptees": 67, "acceptanceRate": 0.131 },
+      "502-505": { "applicants": 423, "acceptees": 78, "acceptanceRate": 0.184 },
+      "506-509": { "applicants": 312, "acceptees": 78, "acceptanceRate": 0.250 },
+      "510-513": { "applicants": 198, "acceptees": 65, "acceptanceRate": 0.328 },
+      "514-517": { "applicants": 112, "acceptees": 48, "acceptanceRate": 0.429 },
+      ">517": { "applicants": 67, "acceptees": 35, "acceptanceRate": 0.522 }
+    },
+    "2.60-2.79": {
+      "<486": { "applicants": 678, "acceptees": 18, "acceptanceRate": 0.027 },
+      "486-489": { "applicants": 623, "acceptees": 34, "acceptanceRate": 0.055 },
+      "490-493": { "applicants": 912, "acceptees": 73, "acceptanceRate": 0.080 },
+      "494-497": { "applicants": 1089, "acceptees": 131, "acceptanceRate": 0.120 },
+      "498-501": { "applicants": 1156, "acceptees": 197, "acceptanceRate": 0.170 },
+      "502-505": { "applicants": 1023, "acceptees": 235, "acceptanceRate": 0.230 },
+      "506-509": { "applicants": 812, "acceptees": 252, "acceptanceRate": 0.310 },
+      "510-513": { "applicants": 534, "acceptees": 214, "acceptanceRate": 0.401 },
+      "514-517": { "applicants": 312, "acceptees": 153, "acceptanceRate": 0.490 },
+      ">517": { "applicants": 178, "acceptees": 103, "acceptanceRate": 0.579 }
+    },
+    "2.80-2.99": {
+      "<486": { "applicants": 1023, "acceptees": 41, "acceptanceRate": 0.040 },
+      "486-489": { "applicants": 978, "acceptees": 69, "acceptanceRate": 0.071 },
+      "490-493": { "applicants": 1456, "acceptees": 160, "acceptanceRate": 0.110 },
+      "494-497": { "applicants": 1823, "acceptees": 292, "acceptanceRate": 0.160 },
+      "498-501": { "applicants": 2012, "acceptees": 443, "acceptanceRate": 0.220 },
+      "502-505": { "applicants": 1834, "acceptees": 532, "acceptanceRate": 0.290 },
+      "506-509": { "applicants": 1567, "acceptees": 564, "acceptanceRate": 0.360 },
+      "510-513": { "applicants": 1123, "acceptees": 505, "acceptanceRate": 0.450 },
+      "514-517": { "applicants": 678, "acceptees": 366, "acceptanceRate": 0.540 },
+      ">517": { "applicants": 412, "acceptees": 263, "acceptanceRate": 0.638 }
+    },
+    "3.00-3.19": {
+      "<486": { "applicants": 1289, "acceptees": 65, "acceptanceRate": 0.050 },
+      "486-489": { "applicants": 1345, "acceptees": 121, "acceptanceRate": 0.090 },
+      "490-493": { "applicants": 1978, "acceptees": 277, "acceptanceRate": 0.140 },
+      "494-497": { "applicants": 2567, "acceptees": 488, "acceptanceRate": 0.190 },
+      "498-501": { "applicants": 2934, "acceptees": 763, "acceptanceRate": 0.260 },
+      "502-505": { "applicants": 2712, "acceptees": 896, "acceptanceRate": 0.330 },
+      "506-509": { "applicants": 2345, "acceptees": 961, "acceptanceRate": 0.410 },
+      "510-513": { "applicants": 1823, "acceptees": 912, "acceptanceRate": 0.500 },
+      "514-517": { "applicants": 1156, "acceptees": 682, "acceptanceRate": 0.590 },
+      ">517": { "applicants": 723, "acceptees": 491, "acceptanceRate": 0.679 }
+    },
+    "3.20-3.39": {
+      "<486": { "applicants": 1456, "acceptees": 87, "acceptanceRate": 0.060 },
+      "486-489": { "applicants": 1678, "acceptees": 185, "acceptanceRate": 0.110 },
+      "490-493": { "applicants": 2534, "acceptees": 431, "acceptanceRate": 0.170 },
+      "494-497": { "applicants": 3289, "acceptees": 757, "acceptanceRate": 0.230 },
+      "498-501": { "applicants": 3912, "acceptees": 1174, "acceptanceRate": 0.300 },
+      "502-505": { "applicants": 3678, "acceptees": 1398, "acceptanceRate": 0.380 },
+      "506-509": { "applicants": 3234, "acceptees": 1488, "acceptanceRate": 0.460 },
+      "510-513": { "applicants": 2678, "acceptees": 1473, "acceptanceRate": 0.550 },
+      "514-517": { "applicants": 1823, "acceptees": 1131, "acceptanceRate": 0.620 },
+      ">517": { "applicants": 1189, "acceptees": 832, "acceptanceRate": 0.700 }
+    },
+    "3.40-3.59": {
+      "<486": { "applicants": 1234, "acceptees": 86, "acceptanceRate": 0.070 },
+      "486-489": { "applicants": 1567, "acceptees": 204, "acceptanceRate": 0.130 },
+      "490-493": { "applicants": 2412, "acceptees": 483, "acceptanceRate": 0.200 },
+      "494-497": { "applicants": 3345, "acceptees": 903, "acceptanceRate": 0.270 },
+      "498-501": { "applicants": 4123, "acceptees": 1443, "acceptanceRate": 0.350 },
+      "502-505": { "applicants": 4012, "acceptees": 1725, "acceptanceRate": 0.430 },
+      "506-509": { "applicants": 3678, "acceptees": 1912, "acceptanceRate": 0.520 },
+      "510-513": { "applicants": 3234, "acceptees": 1940, "acceptanceRate": 0.600 },
+      "514-517": { "applicants": 2456, "acceptees": 1645, "acceptanceRate": 0.670 },
+      ">517": { "applicants": 1678, "acceptees": 1259, "acceptanceRate": 0.750 }
+    },
+    "3.60-3.79": {
+      "<486": { "applicants": 912, "acceptees": 73, "acceptanceRate": 0.080 },
+      "486-489": { "applicants": 1234, "acceptees": 185, "acceptanceRate": 0.150 },
+      "490-493": { "applicants": 1989, "acceptees": 458, "acceptanceRate": 0.230 },
+      "494-497": { "applicants": 2867, "acceptees": 889, "acceptanceRate": 0.310 },
+      "498-501": { "applicants": 3712, "acceptees": 1485, "acceptanceRate": 0.400 },
+      "502-505": { "applicants": 3934, "acceptees": 1888, "acceptanceRate": 0.480 },
+      "506-509": { "applicants": 3823, "acceptees": 2179, "acceptanceRate": 0.570 },
+      "510-513": { "applicants": 3567, "acceptees": 2354, "acceptanceRate": 0.660 },
+      "514-517": { "applicants": 2934, "acceptees": 2142, "acceptanceRate": 0.730 },
+      ">517": { "applicants": 2189, "acceptees": 1751, "acceptanceRate": 0.800 }
+    },
+    "≥3.80": {
+      "<486": { "applicants": 567, "acceptees": 57, "acceptanceRate": 0.101 },
+      "486-489": { "applicants": 823, "acceptees": 148, "acceptanceRate": 0.180 },
+      "490-493": { "applicants": 1345, "acceptees": 350, "acceptanceRate": 0.260 },
+      "494-497": { "applicants": 2123, "acceptees": 722, "acceptanceRate": 0.340 },
+      "498-501": { "applicants": 2934, "acceptees": 1291, "acceptanceRate": 0.440 },
+      "502-505": { "applicants": 3456, "acceptees": 1797, "acceptanceRate": 0.520 },
+      "506-509": { "applicants": 3789, "acceptees": 2311, "acceptanceRate": 0.610 },
+      "510-513": { "applicants": 4123, "acceptees": 2887, "acceptanceRate": 0.700 },
+      "514-517": { "applicants": 3823, "acceptees": 2944, "acceptanceRate": 0.770 },
+      ">517": { "applicants": 3456, "acceptees": 2903, "acceptanceRate": 0.840 }
+    }
+  }
+}

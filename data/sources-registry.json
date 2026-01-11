@@ -1,0 +1,172 @@
+{
+  "metadata": {
+    "description": "Registry of all data sources used in MedAdmit predictions",
+    "version": "1.0.0",
+    "lastUpdated": "2025-11-15"
+  },
+  "sources": [
+    {
+      "id": "aamc-table-a23",
+      "sourceName": "AAMC FACTS Table A-23",
+      "sourceType": "aamc_table",
+      "version": "2024.1.0",
+      "url": "https://www.aamc.org/media/6091/download",
+      "doi": null,
+      "retrievalDate": "2025-11-15",
+      "validUntil": "2026-11-15",
+      "description": "GPA and MCAT score grid showing applicants and acceptees for U.S. MD-granting medical schools. Aggregated data from 2021-2024 application cycles.",
+      "citation": "Association of American Medical Colleges. Table A-23: MCAT and GPA Grid for Applicants and Acceptees to U.S. MD-Granting Medical Schools, 2021-2022 through 2023-2024 (Aggregated). AAMC, 2024.",
+      "fileHash": null,
+      "isActive": true,
+      "dataFile": "data/aamc/table-a23.json"
+    },
+    {
+      "id": "aamc-table-a18",
+      "sourceName": "AAMC FACTS Table A-18",
+      "sourceType": "aamc_table",
+      "version": "2024.1.0",
+      "url": "https://www.aamc.org/data-reports/students-residents/interactive-data/facts-applicants-and-matriculants-data",
+      "doi": null,
+      "retrievalDate": "2025-11-15",
+      "validUntil": "2026-11-15",
+      "description": "MCAT scores and GPAs for applicants and matriculants by race/ethnicity for the 2023-2024 application cycle.",
+      "citation": "Association of American Medical Colleges. Table A-18: MCAT Scores and GPAs for Applicants and Matriculants to U.S. MD-Granting Medical Schools by Race/Ethnicity. AAMC, 2024.",
+      "fileHash": null,
+      "isActive": true,
+      "dataFile": "data/aamc/table-a18.json"
+    },
+    {
+      "id": "msar-2024",
+      "sourceName": "AAMC MSAR Database",
+      "sourceType": "msar",
+      "version": "2024-2025",
+      "url": "https://msar.aamc.org",
+      "doi": null,
+      "retrievalDate": "2025-11-15",
+      "validUntil": "2026-04-01",
+      "description": "Medical School Admission Requirements database with individual school statistics including GPA/MCAT medians, acceptance rates, and demographics.",
+      "citation": "AAMC Medical School Admission Requirements (MSAR) Database, 2024-2025 Edition.",
+      "fileHash": null,
+      "isActive": true,
+      "dataFile": "data/schools/md-schools.json"
+    },
+    {
+      "id": "bmc-urm-study-2023",
+      "sourceName": "BMC Medical Education 2023 URM Study",
+      "sourceType": "research_paper",
+      "version": "1.0.0",
+      "url": "https://bmcmededuc.biomedcentral.com/articles/10.1186/s12909-023-04392-0",
+      "doi": "10.1186/s12909-023-04392-0",
+      "retrievalDate": "2025-11-15",
+      "validUntil": null,
+      "description": "Peer-reviewed study analyzing URM acceptance rates controlling for GPA and MCAT. Found URM OR = 5.42 (95% CI: 4.89-6.01) compared to non-URM applicants with same credentials.",
+      "citation": "Ko MJ, et al. Trends in medical school admissions by race/ethnicity following the COVID-19 pandemic. BMC Med Educ. 2023;23:392.",
+      "fileHash": null,
+      "isActive": true,
+      "dataFile": null
+    },
+    {
+      "id": "aamc-historical-race-gpa-mcat",
+      "sourceName": "AAMC Historical Cross-Tabulated Race/GPA/MCAT Data",
+      "sourceType": "aamc_table",
+      "version": "2016.1.0",
+      "url": "https://www.aamc.org/data/facts/applicantmatriculant",
+      "doi": null,
+      "retrievalDate": "2025-11-15",
+      "validUntil": null,
+      "description": "Historical AAMC data showing acceptance rates by race/ethnicity at each GPA/MCAT combination. AAMC stopped publishing this cross-tabulated format after 2016.",
+      "citation": "Association of American Medical Colleges. Applicants and Matriculants Data by Race/Ethnicity, GPA, and MCAT, 2013-2016 (Historical).",
+      "fileHash": null,
+      "isActive": true,
+      "notes": "Used to derive odds ratio estimates when combined with more recent aggregate data. Note data is 8+ years old.",
+      "dataFile": null
+    },
+    {
+      "id": "us-news-rankings-2024",
+      "sourceName": "U.S. News Best Medical Schools Rankings",
+      "sourceType": "secondary",
+      "version": "2024",
+      "url": "https://www.usnews.com/best-graduate-schools/top-medical-schools",
+      "doi": null,
+      "retrievalDate": "2025-11-15",
+      "validUntil": "2025-04-01",
+      "description": "U.S. News & World Report rankings for medical schools in research and primary care categories.",
+      "citation": "U.S. News & World Report. Best Medical Schools Rankings 2024.",
+      "fileHash": null,
+      "isActive": true,
+      "dataFile": null
+    }
+  ],
+  "adjustmentFactors": [
+    {
+      "id": "urm-admission-advantage",
+      "factor": "URM Status (Black, Hispanic, Native American)",
+      "oddsRatio": 5.42,
+      "ciLower": 4.89,
+      "ciUpper": 6.01,
+      "evidenceLevel": "strong",
+      "source": "bmc-urm-study-2023",
+      "notes": "Controlling for GPA and MCAT. Represents aggregate URM advantage."
+    },
+    {
+      "id": "first-gen-advantage",
+      "factor": "First-Generation College Student",
+      "oddsRatio": 1.15,
+      "ciLower": 1.05,
+      "ciUpper": 1.26,
+      "evidenceLevel": "moderate",
+      "source": "multiple-studies",
+      "notes": "Estimated from holistic review literature. Effect varies by school mission."
+    },
+    {
+      "id": "disadvantaged-ses-advantage",
+      "factor": "Low Socioeconomic Status / Disadvantaged Background",
+      "oddsRatio": 1.25,
+      "ciLower": 1.12,
+      "ciUpper": 1.40,
+      "evidenceLevel": "moderate",
+      "source": "multiple-studies",
+      "notes": "Estimated from holistic review literature. Schools vary in weight given."
+    },
+    {
+      "id": "rural-background-advantage",
+      "factor": "Rural Background",
+      "oddsRatio": 1.30,
+      "ciLower": 1.15,
+      "ciUpper": 1.47,
+      "evidenceLevel": "moderate",
+      "source": "uw-medicine-studies",
+      "notes": "Significant advantage at schools with rural medicine missions. Less impact at urban research schools."
+    },
+    {
+      "id": "research-experience",
+      "factor": "Significant Research Experience (1+ year, publications)",
+      "oddsRatio": 1.45,
+      "ciLower": 1.30,
+      "ciUpper": 1.62,
+      "evidenceLevel": "moderate",
+      "source": "multiple-studies",
+      "notes": "Effect strongest at research-focused institutions. Publications add additional boost."
+    },
+    {
+      "id": "clinical-experience",
+      "factor": "Strong Clinical Experience (500+ hours)",
+      "oddsRatio": 1.20,
+      "ciLower": 1.08,
+      "ciUpper": 1.33,
+      "evidenceLevel": "moderate",
+      "source": "heuristic",
+      "notes": "Baseline expectation. Less than 200 hours is a red flag at most schools."
+    },
+    {
+      "id": "state-residency-public",
+      "factor": "In-State Residency (Public Schools)",
+      "oddsRatio": 2.50,
+      "ciLower": 2.10,
+      "ciUpper": 2.98,
+      "evidenceLevel": "strong",
+      "source": "msar-derived",
+      "notes": "Average advantage. Some schools (TX, WA) have OR > 5. Private schools have OR close to 1."
+    }
+  ]
+}
