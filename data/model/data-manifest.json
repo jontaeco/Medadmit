@@ -1,0 +1,79 @@
+{
+  "manifestVersion": "1.0.0",
+  "generatedAt": "2026-01-11T23:40:37Z",
+  "currentSnapshot": "2026.1.0",
+  "snapshots": {
+    "2026.1.0": {
+      "createdAt": "2026-01-11T00:00:00Z",
+      "description": "Initial Phase 1 data infrastructure",
+      "files": {
+        "aamc/table-a23-processed.json": {
+          "version": "1.0.0",
+          "processedAt": "2026-01-11",
+          "checksum": null,
+          "records": 100,
+          "description": "A-23 GPA/MCAT acceptance grid with bin centers"
+        },
+        "aamc/table-a18-processed.json": {
+          "version": "1.0.0",
+          "processedAt": "2026-01-11",
+          "checksum": null,
+          "records": 9,
+          "description": "A-18 demographic effects with logit-scale parameters"
+        },
+        "schools/md-schools-enhanced.json": {
+          "version": "1.0.0",
+          "enhancedAt": "2026-01-11",
+          "checksum": null,
+          "records": 160,
+          "description": "Enhanced school data with mission features and derived fields"
+        }
+      },
+      "sources": {
+        "aamc-a23": {
+          "name": "AAMC Table A-23",
+          "version": "2024.1.0",
+          "aggregationPeriod": "2021-2024",
+          "url": "https://www.aamc.org/media/6091/download"
+        },
+        "aamc-a18": {
+          "name": "AAMC Table A-18",
+          "version": "2024.1.0",
+          "academicYear": "2023-2024",
+          "url": "https://www.aamc.org/data-reports/students-residents/interactive-data/facts-applicants-and-matriculants-data"
+        },
+        "msar": {
+          "name": "MSAR Database",
+          "version": "2025-2026",
+          "url": "https://msar.aamc.org"
+        },
+        "admit-org": {
+          "name": "admit.org Statistics",
+          "retrievedAt": "2026-01-11",
+          "notes": "Supplementary interview and acceptance rates"
+        }
+      },
+      "modelCompatibility": {
+        "minModelVersion": "2.0.0",
+        "testedWith": []
+      }
+    }
+  },
+  "processingScripts": {
+    "process_a23.py": {
+      "description": "Process A-23 data with bin centers",
+      "inputs": ["data/aamc/table-a23.json"],
+      "outputs": ["data/aamc/table-a23-processed.json"]
+    },
+    "process_a18.py": {
+      "description": "Process A-18 data with logit effects",
+      "inputs": ["data/aamc/table-a18.json"],
+      "outputs": ["data/aamc/table-a18-processed.json"]
+    },
+    "enhance_schools.py": {
+      "description": "Enhance school data with mission features",
+      "inputs": ["data/schools/md-schools.json"],
+      "outputs": ["data/schools/md-schools-enhanced.json"]
+    }
+  }
+}

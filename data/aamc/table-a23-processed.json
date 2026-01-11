@@ -1,0 +1,2047 @@
+{
+  "metadata": {
+    "source": "AAMC FACTS Table A-23",
+    "url": "https://www.aamc.org/media/6091/download",
+    "retrievedAt": "2025-11-15",
+    "version": "2024.1.0",
+    "aggregationPeriod": "2021-2024",
+    "totalApplicants": 155078,
+    "totalAcceptees": 68986,
+    "citation": "Association of American Medical Colleges. Table A-23: MCAT and GPA Grid for Applicants and Acceptees to U.S. MD-Granting Medical Schools, 2021-2022 through 2023-2024 (Aggregated). AAMC, 2024.",
+    "notes": "Data represents three application cycles aggregated. Acceptance rate = Acceptees / Applicants for each cell.",
+    "processedAt": "2026-01-11",
+    "processingVersion": "1.0.0",
+    "totalCells": 100,
+    "weightedAverageAcceptanceRate": 0.3887
+  },
+  "binDefinitions": {
+    "gpa": {
+      "<2.20": {
+        "center": 2.0,
+        "lower": 0.0,
+        "upper": 2.2
+      },
+      "2.20-2.39": {
+        "center": 2.3,
+        "lower": 2.2,
+        "upper": 2.4
+      },
+      "2.40-2.59": {
+        "center": 2.5,
+        "lower": 2.4,
+        "upper": 2.6
+      },
+      "2.60-2.79": {
+        "center": 2.7,
+        "lower": 2.6,
+        "upper": 2.8
+      },
+      "2.80-2.99": {
+        "center": 2.9,
+        "lower": 2.8,
+        "upper": 3.0
+      },
+      "3.00-3.19": {
+        "center": 3.1,
+        "lower": 3.0,
+        "upper": 3.2
+      },
+      "3.20-3.39": {
+        "center": 3.3,
+        "lower": 3.2,
+        "upper": 3.4
+      },
+      "3.40-3.59": {
+        "center": 3.5,
+        "lower": 3.4,
+        "upper": 3.6
+      },
+      "3.60-3.79": {
+        "center": 3.7,
+        "lower": 3.6,
+        "upper": 3.8
+      },
+      "\u22653.80": {
+        "center": 3.9,
+        "lower": 3.8,
+        "upper": 4.0
+      }
+    },
+    "mcat": {
+      "<486": {
+        "center": 483,
+        "lower": 472,
+        "upper": 486
+      },
+      "486-489": {
+        "center": 487.5,
+        "lower": 486,
+        "upper": 490
+      },
+      "490-493": {
+        "center": 491.5,
+        "lower": 490,
+        "upper": 494
+      },
+      "494-497": {
+        "center": 495.5,
+        "lower": 494,
+        "upper": 498
+      },
+      "498-501": {
+        "center": 499.5,
+        "lower": 498,
+        "upper": 502
+      },
+      "502-505": {
+        "center": 503.5,
+        "lower": 502,
+        "upper": 506
+      },
+      "506-509": {
+        "center": 507.5,
+        "lower": 506,
+        "upper": 510
+      },
+      "510-513": {
+        "center": 511.5,
+        "lower": 510,
+        "upper": 514
+      },
+      "514-517": {
+        "center": 515.5,
+        "lower": 514,
+        "upper": 518
+      },
+      ">517": {
+        "center": 521,
+        "lower": 518,
+        "upper": 528
+      }
+    }
+  },
+  "cells": [
+    {
+      "gpaBin": "<2.20",
+      "gpaCenter": 2.0,
+      "gpaLower": 0.0,
+      "gpaUpper": 2.2,
+      "mcatBin": "<486",
+      "mcatCenter": 483,
+      "mcatLower": 472,
+      "mcatUpper": 486,
+      "applicants": 89,
+      "acceptees": 1,
+      "acceptanceRate": 0.011,
+      "weight": 0.0005739047447091141
+    },
+    {
+      "gpaBin": "<2.20",
+      "gpaCenter": 2.0,
+      "gpaLower": 0.0,
+      "gpaUpper": 2.2,
+      "mcatBin": "486-489",
+      "mcatCenter": 487.5,
+      "mcatLower": 486,
+      "mcatUpper": 490,
+      "applicants": 45,
+      "acceptees": 1,
+      "acceptanceRate": 0.022,
+      "weight": 0.00029017655631359703
+    },
+    {
+      "gpaBin": "<2.20",
+      "gpaCenter": 2.0,
+      "gpaLower": 0.0,
+      "gpaUpper": 2.2,
+      "mcatBin": "490-493",
+      "mcatCenter": 491.5,
+      "mcatLower": 490,
+      "mcatUpper": 494,
+      "applicants": 52,
+      "acceptees": 2,
+      "acceptanceRate": 0.038,
+      "weight": 0.0003353151317401566
+    },
+    {
+      "gpaBin": "<2.20",
+      "gpaCenter": 2.0,
+      "gpaLower": 0.0,
+      "gpaUpper": 2.2,
+      "mcatBin": "494-497",
+      "mcatCenter": 495.5,
+      "mcatLower": 494,
+      "mcatUpper": 498,
+      "applicants": 48,
+      "acceptees": 2,
+      "acceptanceRate": 0.042,
+      "weight": 0.0003095216600678368
+    },
+    {
+      "gpaBin": "<2.20",
+      "gpaCenter": 2.0,
+      "gpaLower": 0.0,
+      "gpaUpper": 2.2,
+      "mcatBin": "498-501",
+      "mcatCenter": 499.5,
+      "mcatLower": 498,
+      "mcatUpper": 502,
+      "applicants": 38,
+      "acceptees": 3,
+      "acceptanceRate": 0.079,
+      "weight": 0.0002450379808870375
+    },
+    {
+      "gpaBin": "<2.20",
+      "gpaCenter": 2.0,
+      "gpaLower": 0.0,
+      "gpaUpper": 2.2,
+      "mcatBin": "502-505",
+      "mcatCenter": 503.5,
+      "mcatLower": 502,
+      "mcatUpper": 506,
+      "applicants": 25,
+      "acceptees": 3,
+      "acceptanceRate": 0.12,
+      "weight": 0.00016120919795199835
+    },
+    {
+      "gpaBin": "<2.20",
+      "gpaCenter": 2.0,
+      "gpaLower": 0.0,
+      "gpaUpper": 2.2,
+      "mcatBin": "506-509",
+      "mcatCenter": 507.5,
+      "mcatLower": 506,
+      "mcatUpper": 510,
+      "applicants": 18,
+      "acceptees": 3,
+      "acceptanceRate": 0.167,
+      "weight": 0.00011607062252543881
+    },
+    {
+      "gpaBin": "<2.20",
+      "gpaCenter": 2.0,
+      "gpaLower": 0.0,
+      "gpaUpper": 2.2,
+      "mcatBin": "510-513",
+      "mcatCenter": 511.5,
+      "mcatLower": 510,
+      "mcatUpper": 514,
+      "applicants": 12,
+      "acceptees": 3,
+      "acceptanceRate": 0.25,
+      "weight": 7.73804150169592e-05
+    },
+    {
+      "gpaBin": "<2.20",
+      "gpaCenter": 2.0,
+      "gpaLower": 0.0,
+      "gpaUpper": 2.2,
+      "mcatBin": "514-517",
+      "mcatCenter": 515.5,
+      "mcatLower": 514,
+      "mcatUpper": 518,
+      "applicants": 6,
+      "acceptees": 2,
+      "acceptanceRate": 0.333,
+      "weight": 3.86902075084796e-05
+    },
+    {
+      "gpaBin": "<2.20",
+      "gpaCenter": 2.0,
+      "gpaLower": 0.0,
+      "gpaUpper": 2.2,
+      "mcatBin": ">517",
+      "mcatCenter": 521,
+      "mcatLower": 518,
+      "mcatUpper": 528,
+      "applicants": 4,
+      "acceptees": 2,
+      "acceptanceRate": 0.5,
+      "weight": 2.5793471672319737e-05
+    },
+    {
+      "gpaBin": "2.20-2.39",
+      "gpaCenter": 2.3,
+      "gpaLower": 2.2,
+      "gpaUpper": 2.4,
+      "mcatBin": "<486",
+      "mcatCenter": 483,
+      "mcatLower": 472,
+      "mcatUpper": 486,
+      "applicants": 198,
+      "acceptees": 3,
+      "acceptanceRate": 0.015,
+      "weight": 0.001276776847779827
+    },
+    {
+      "gpaBin": "2.20-2.39",
+      "gpaCenter": 2.3,
+      "gpaLower": 2.2,
+      "gpaUpper": 2.4,
+      "mcatBin": "486-489",
+      "mcatCenter": 487.5,
+      "mcatLower": 486,
+      "mcatUpper": 490,
+      "applicants": 142,
+      "acceptees": 4,
+      "acceptanceRate": 0.028,
+      "weight": 0.0009156682443673506
+    },
+    {
+      "gpaBin": "2.20-2.39",
+      "gpaCenter": 2.3,
+      "gpaLower": 2.2,
+      "gpaUpper": 2.4,
+      "mcatBin": "490-493",
+      "mcatCenter": 491.5,
+      "mcatLower": 490,
+      "mcatUpper": 494,
+      "applicants": 178,
+      "acceptees": 8,
+      "acceptanceRate": 0.045,
+      "weight": 0.0011478094894182282
+    },
+    {
+      "gpaBin": "2.20-2.39",
+      "gpaCenter": 2.3,
+      "gpaLower": 2.2,
+      "gpaUpper": 2.4,
+      "mcatBin": "494-497",
+      "mcatCenter": 495.5,
+      "mcatLower": 494,
+      "mcatUpper": 498,
+      "applicants": 189,
+      "acceptees": 12,
+      "acceptanceRate": 0.063,
+      "weight": 0.0012187415365171076
+    },
+    {
+      "gpaBin": "2.20-2.39",
+      "gpaCenter": 2.3,
+      "gpaLower": 2.2,
+      "gpaUpper": 2.4,
+      "mcatBin": "498-501",
+      "mcatCenter": 499.5,
+      "mcatLower": 498,
+      "mcatUpper": 502,
+      "applicants": 168,
+      "acceptees": 16,
+      "acceptanceRate": 0.095,
+      "weight": 0.0010833258102374288
+    },
+    {
+      "gpaBin": "2.20-2.39",
+      "gpaCenter": 2.3,
+      "gpaLower": 2.2,
+      "gpaUpper": 2.4,
+      "mcatBin": "502-505",
+      "mcatCenter": 503.5,
+      "mcatLower": 502,
+      "mcatUpper": 506,
+      "applicants": 124,
+      "acceptees": 18,
+      "acceptanceRate": 0.145,
+      "weight": 0.0007995976218419118
+    },
+    {
+      "gpaBin": "2.20-2.39",
+      "gpaCenter": 2.3,
+      "gpaLower": 2.2,
+      "gpaUpper": 2.4,
+      "mcatBin": "506-509",
+      "mcatCenter": 507.5,
+      "mcatLower": 506,
+      "mcatUpper": 510,
+      "applicants": 89,
+      "acceptees": 18,
+      "acceptanceRate": 0.202,
+      "weight": 0.0005739047447091141
+    },
+    {
+      "gpaBin": "2.20-2.39",
+      "gpaCenter": 2.3,
+      "gpaLower": 2.2,
+      "gpaUpper": 2.4,
+      "mcatBin": "510-513",
+      "mcatCenter": 511.5,
+      "mcatLower": 510,
+      "mcatUpper": 514,
+      "applicants": 56,
+      "acceptees": 16,
+      "acceptanceRate": 0.286,
+      "weight": 0.0003611086034124763
+    },
+    {
+      "gpaBin": "2.20-2.39",
+      "gpaCenter": 2.3,
+      "gpaLower": 2.2,
+      "gpaUpper": 2.4,
+      "mcatBin": "514-517",
+      "mcatCenter": 515.5,
+      "mcatLower": 514,
+      "mcatUpper": 518,
+      "applicants": 32,
+      "acceptees": 12,
+      "acceptanceRate": 0.375,
+      "weight": 0.0002063477733785579
+    },
+    {
+      "gpaBin": "2.20-2.39",
+      "gpaCenter": 2.3,
+      "gpaLower": 2.2,
+      "gpaUpper": 2.4,
+      "mcatBin": ">517",
+      "mcatCenter": 521,
+      "mcatLower": 518,
+      "mcatUpper": 528,
+      "applicants": 18,
+      "acceptees": 9,
+      "acceptanceRate": 0.5,
+      "weight": 0.00011607062252543881
+    },
+    {
+      "gpaBin": "2.40-2.59",
+      "gpaCenter": 2.5,
+      "gpaLower": 2.4,
+      "gpaUpper": 2.6,
+      "mcatBin": "<486",
+      "mcatCenter": 483,
+      "mcatLower": 472,
+      "mcatUpper": 486,
+      "applicants": 412,
+      "acceptees": 8,
+      "acceptanceRate": 0.019,
+      "weight": 0.002656727582248933
+    },
+    {
+      "gpaBin": "2.40-2.59",
+      "gpaCenter": 2.5,
+      "gpaLower": 2.4,
+      "gpaUpper": 2.6,
+      "mcatBin": "486-489",
+      "mcatCenter": 487.5,
+      "mcatLower": 486,
+      "mcatUpper": 490,
+      "applicants": 356,
+      "acceptees": 14,
+      "acceptanceRate": 0.039,
+      "weight": 0.0022956189788364565
+    },
+    {
+      "gpaBin": "2.40-2.59",
+      "gpaCenter": 2.5,
+      "gpaLower": 2.4,
+      "gpaUpper": 2.6,
+      "mcatBin": "490-493",
+      "mcatCenter": 491.5,
+      "mcatLower": 490,
+      "mcatUpper": 494,
+      "applicants": 489,
+      "acceptees": 29,
+      "acceptanceRate": 0.059,
+      "weight": 0.003153251911941088
+    },
+    {
+      "gpaBin": "2.40-2.59",
+      "gpaCenter": 2.5,
+      "gpaLower": 2.4,
+      "gpaUpper": 2.6,
+      "mcatBin": "494-497",
+      "mcatCenter": 495.5,
+      "mcatLower": 494,
+      "mcatUpper": 498,
+      "applicants": 534,
+      "acceptees": 48,
+      "acceptanceRate": 0.09,
+      "weight": 0.0034434284682546847
+    },
+    {
+      "gpaBin": "2.40-2.59",
+      "gpaCenter": 2.5,
+      "gpaLower": 2.4,
+      "gpaUpper": 2.6,
+      "mcatBin": "498-501",
+      "mcatCenter": 499.5,
+      "mcatLower": 498,
+      "mcatUpper": 502,
+      "applicants": 512,
+      "acceptees": 67,
+      "acceptanceRate": 0.131,
+      "weight": 0.0033015643740569264
+    },
+    {
+      "gpaBin": "2.40-2.59",
+      "gpaCenter": 2.5,
+      "gpaLower": 2.4,
+      "gpaUpper": 2.6,
+      "mcatBin": "502-505",
+      "mcatCenter": 503.5,
+      "mcatLower": 502,
+      "mcatUpper": 506,
+      "applicants": 423,
+      "acceptees": 78,
+      "acceptanceRate": 0.184,
+      "weight": 0.002727659629347812
+    },
+    {
+      "gpaBin": "2.40-2.59",
+      "gpaCenter": 2.5,
+      "gpaLower": 2.4,
+      "gpaUpper": 2.6,
+      "mcatBin": "506-509",
+      "mcatCenter": 507.5,
+      "mcatLower": 506,
+      "mcatUpper": 510,
+      "applicants": 312,
+      "acceptees": 78,
+      "acceptanceRate": 0.25,
+      "weight": 0.0020118907904409394
+    },
+    {
+      "gpaBin": "2.40-2.59",
+      "gpaCenter": 2.5,
+      "gpaLower": 2.4,
+      "gpaUpper": 2.6,
+      "mcatBin": "510-513",
+      "mcatCenter": 511.5,
+      "mcatLower": 510,
+      "mcatUpper": 514,
+      "applicants": 198,
+      "acceptees": 65,
+      "acceptanceRate": 0.328,
+      "weight": 0.001276776847779827
+    },
+    {
+      "gpaBin": "2.40-2.59",
+      "gpaCenter": 2.5,
+      "gpaLower": 2.4,
+      "gpaUpper": 2.6,
+      "mcatBin": "514-517",
+      "mcatCenter": 515.5,
+      "mcatLower": 514,
+      "mcatUpper": 518,
+      "applicants": 112,
+      "acceptees": 48,
+      "acceptanceRate": 0.429,
+      "weight": 0.0007222172068249526
+    },
+    {
+      "gpaBin": "2.40-2.59",
+      "gpaCenter": 2.5,
+      "gpaLower": 2.4,
+      "gpaUpper": 2.6,
+      "mcatBin": ">517",
+      "mcatCenter": 521,
+      "mcatLower": 518,
+      "mcatUpper": 528,
+      "applicants": 67,
+      "acceptees": 35,
+      "acceptanceRate": 0.522,
+      "weight": 0.0004320406505113556
+    },
+    {
+      "gpaBin": "2.60-2.79",
+      "gpaCenter": 2.7,
+      "gpaLower": 2.6,
+      "gpaUpper": 2.8,
+      "mcatBin": "<486",
+      "mcatCenter": 483,
+      "mcatLower": 472,
+      "mcatUpper": 486,
+      "applicants": 678,
+      "acceptees": 18,
+      "acceptanceRate": 0.027,
+      "weight": 0.004371993448458195
+    },
+    {
+      "gpaBin": "2.60-2.79",
+      "gpaCenter": 2.7,
+      "gpaLower": 2.6,
+      "gpaUpper": 2.8,
+      "mcatBin": "486-489",
+      "mcatCenter": 487.5,
+      "mcatLower": 486,
+      "mcatUpper": 490,
+      "applicants": 623,
+      "acceptees": 34,
+      "acceptanceRate": 0.055,
+      "weight": 0.004017333212963799
+    },
+    {
+      "gpaBin": "2.60-2.79",
+      "gpaCenter": 2.7,
+      "gpaLower": 2.6,
+      "gpaUpper": 2.8,
+      "mcatBin": "490-493",
+      "mcatCenter": 491.5,
+      "mcatLower": 490,
+      "mcatUpper": 494,
+      "applicants": 912,
+      "acceptees": 73,
+      "acceptanceRate": 0.08,
+      "weight": 0.0058809115412889
+    },
+    {
+      "gpaBin": "2.60-2.79",
+      "gpaCenter": 2.7,
+      "gpaLower": 2.6,
+      "gpaUpper": 2.8,
+      "mcatBin": "494-497",
+      "mcatCenter": 495.5,
+      "mcatLower": 494,
+      "mcatUpper": 498,
+      "applicants": 1089,
+      "acceptees": 131,
+      "acceptanceRate": 0.12,
+      "weight": 0.007022272662789048
+    },
+    {
+      "gpaBin": "2.60-2.79",
+      "gpaCenter": 2.7,
+      "gpaLower": 2.6,
+      "gpaUpper": 2.8,
+      "mcatBin": "498-501",
+      "mcatCenter": 499.5,
+      "mcatLower": 498,
+      "mcatUpper": 502,
+      "applicants": 1156,
+      "acceptees": 197,
+      "acceptanceRate": 0.17,
+      "weight": 0.007454313313300404
+    },
+    {
+      "gpaBin": "2.60-2.79",
+      "gpaCenter": 2.7,
+      "gpaLower": 2.6,
+      "gpaUpper": 2.8,
+      "mcatBin": "502-505",
+      "mcatCenter": 503.5,
+      "mcatLower": 502,
+      "mcatUpper": 506,
+      "applicants": 1023,
+      "acceptees": 235,
+      "acceptanceRate": 0.23,
+      "weight": 0.006596680380195772
+    },
+    {
+      "gpaBin": "2.60-2.79",
+      "gpaCenter": 2.7,
+      "gpaLower": 2.6,
+      "gpaUpper": 2.8,
+      "mcatBin": "506-509",
+      "mcatCenter": 507.5,
+      "mcatLower": 506,
+      "mcatUpper": 510,
+      "applicants": 812,
+      "acceptees": 252,
+      "acceptanceRate": 0.31,
+      "weight": 0.0052360747494809064
+    },
+    {
+      "gpaBin": "2.60-2.79",
+      "gpaCenter": 2.7,
+      "gpaLower": 2.6,
+      "gpaUpper": 2.8,
+      "mcatBin": "510-513",
+      "mcatCenter": 511.5,
+      "mcatLower": 510,
+      "mcatUpper": 514,
+      "applicants": 534,
+      "acceptees": 214,
+      "acceptanceRate": 0.401,
+      "weight": 0.0034434284682546847
+    },
+    {
+      "gpaBin": "2.60-2.79",
+      "gpaCenter": 2.7,
+      "gpaLower": 2.6,
+      "gpaUpper": 2.8,
+      "mcatBin": "514-517",
+      "mcatCenter": 515.5,
+      "mcatLower": 514,
+      "mcatUpper": 518,
+      "applicants": 312,
+      "acceptees": 153,
+      "acceptanceRate": 0.49,
+      "weight": 0.0020118907904409394
+    },
+    {
+      "gpaBin": "2.60-2.79",
+      "gpaCenter": 2.7,
+      "gpaLower": 2.6,
+      "gpaUpper": 2.8,
+      "mcatBin": ">517",
+      "mcatCenter": 521,
+      "mcatLower": 518,
+      "mcatUpper": 528,
+      "applicants": 178,
+      "acceptees": 103,
+      "acceptanceRate": 0.579,
+      "weight": 0.0011478094894182282
+    },
+    {
+      "gpaBin": "2.80-2.99",
+      "gpaCenter": 2.9,
+      "gpaLower": 2.8,
+      "gpaUpper": 3.0,
+      "mcatBin": "<486",
+      "mcatCenter": 483,
+      "mcatLower": 472,
+      "mcatUpper": 486,
+      "applicants": 1023,
+      "acceptees": 41,
+      "acceptanceRate": 0.04,
+      "weight": 0.006596680380195772
+    },
+    {
+      "gpaBin": "2.80-2.99",
+      "gpaCenter": 2.9,
+      "gpaLower": 2.8,
+      "gpaUpper": 3.0,
+      "mcatBin": "486-489",
+      "mcatCenter": 487.5,
+      "mcatLower": 486,
+      "mcatUpper": 490,
+      "applicants": 978,
+      "acceptees": 69,
+      "acceptanceRate": 0.071,
+      "weight": 0.006306503823882176
+    },
+    {
+      "gpaBin": "2.80-2.99",
+      "gpaCenter": 2.9,
+      "gpaLower": 2.8,
+      "gpaUpper": 3.0,
+      "mcatBin": "490-493",
+      "mcatCenter": 491.5,
+      "mcatLower": 490,
+      "mcatUpper": 494,
+      "applicants": 1456,
+      "acceptees": 160,
+      "acceptanceRate": 0.11,
+      "weight": 0.009388823688724384
+    },
+    {
+      "gpaBin": "2.80-2.99",
+      "gpaCenter": 2.9,
+      "gpaLower": 2.8,
+      "gpaUpper": 3.0,
+      "mcatBin": "494-497",
+      "mcatCenter": 495.5,
+      "mcatLower": 494,
+      "mcatUpper": 498,
+      "applicants": 1823,
+      "acceptees": 292,
+      "acceptanceRate": 0.16,
+      "weight": 0.01175537471465972
+    },
+    {
+      "gpaBin": "2.80-2.99",
+      "gpaCenter": 2.9,
+      "gpaLower": 2.8,
+      "gpaUpper": 3.0,
+      "mcatBin": "498-501",
+      "mcatCenter": 499.5,
+      "mcatLower": 498,
+      "mcatUpper": 502,
+      "applicants": 2012,
+      "acceptees": 443,
+      "acceptanceRate": 0.22,
+      "weight": 0.012974116251176827
+    },
+    {
+      "gpaBin": "2.80-2.99",
+      "gpaCenter": 2.9,
+      "gpaLower": 2.8,
+      "gpaUpper": 3.0,
+      "mcatBin": "502-505",
+      "mcatCenter": 503.5,
+      "mcatLower": 502,
+      "mcatUpper": 506,
+      "applicants": 1834,
+      "acceptees": 532,
+      "acceptanceRate": 0.29,
+      "weight": 0.011826306761758599
+    },
+    {
+      "gpaBin": "2.80-2.99",
+      "gpaCenter": 2.9,
+      "gpaLower": 2.8,
+      "gpaUpper": 3.0,
+      "mcatBin": "506-509",
+      "mcatCenter": 507.5,
+      "mcatLower": 506,
+      "mcatUpper": 510,
+      "applicants": 1567,
+      "acceptees": 564,
+      "acceptanceRate": 0.36,
+      "weight": 0.010104592527631257
+    },
+    {
+      "gpaBin": "2.80-2.99",
+      "gpaCenter": 2.9,
+      "gpaLower": 2.8,
+      "gpaUpper": 3.0,
+      "mcatBin": "510-513",
+      "mcatCenter": 511.5,
+      "mcatLower": 510,
+      "mcatUpper": 514,
+      "applicants": 1123,
+      "acceptees": 505,
+      "acceptanceRate": 0.45,
+      "weight": 0.007241517172003766
+    },
+    {
+      "gpaBin": "2.80-2.99",
+      "gpaCenter": 2.9,
+      "gpaLower": 2.8,
+      "gpaUpper": 3.0,
+      "mcatBin": "514-517",
+      "mcatCenter": 515.5,
+      "mcatLower": 514,
+      "mcatUpper": 518,
+      "applicants": 678,
+      "acceptees": 366,
+      "acceptanceRate": 0.54,
+      "weight": 0.004371993448458195
+    },
+    {
+      "gpaBin": "2.80-2.99",
+      "gpaCenter": 2.9,
+      "gpaLower": 2.8,
+      "gpaUpper": 3.0,
+      "mcatBin": ">517",
+      "mcatCenter": 521,
+      "mcatLower": 518,
+      "mcatUpper": 528,
+      "applicants": 412,
+      "acceptees": 263,
+      "acceptanceRate": 0.638,
+      "weight": 0.002656727582248933
+    },
+    {
+      "gpaBin": "3.00-3.19",
+      "gpaCenter": 3.1,
+      "gpaLower": 3.0,
+      "gpaUpper": 3.2,
+      "mcatBin": "<486",
+      "mcatCenter": 483,
+      "mcatLower": 472,
+      "mcatUpper": 486,
+      "applicants": 1289,
+      "acceptees": 65,
+      "acceptanceRate": 0.05,
+      "weight": 0.008311946246405034
+    },
+    {
+      "gpaBin": "3.00-3.19",
+      "gpaCenter": 3.1,
+      "gpaLower": 3.0,
+      "gpaUpper": 3.2,
+      "mcatBin": "486-489",
+      "mcatCenter": 487.5,
+      "mcatLower": 486,
+      "mcatUpper": 490,
+      "applicants": 1345,
+      "acceptees": 121,
+      "acceptanceRate": 0.09,
+      "weight": 0.008673054849817511
+    },
+    {
+      "gpaBin": "3.00-3.19",
+      "gpaCenter": 3.1,
+      "gpaLower": 3.0,
+      "gpaUpper": 3.2,
+      "mcatBin": "490-493",
+      "mcatCenter": 491.5,
+      "mcatLower": 490,
+      "mcatUpper": 494,
+      "applicants": 1978,
+      "acceptees": 277,
+      "acceptanceRate": 0.14,
+      "weight": 0.012754871741962109
+    },
+    {
+      "gpaBin": "3.00-3.19",
+      "gpaCenter": 3.1,
+      "gpaLower": 3.0,
+      "gpaUpper": 3.2,
+      "mcatBin": "494-497",
+      "mcatCenter": 495.5,
+      "mcatLower": 494,
+      "mcatUpper": 498,
+      "applicants": 2567,
+      "acceptees": 488,
+      "acceptanceRate": 0.19,
+      "weight": 0.016552960445711192
+    },
+    {
+      "gpaBin": "3.00-3.19",
+      "gpaCenter": 3.1,
+      "gpaLower": 3.0,
+      "gpaUpper": 3.2,
+      "mcatBin": "498-501",
+      "mcatCenter": 499.5,
+      "mcatLower": 498,
+      "mcatUpper": 502,
+      "applicants": 2934,
+      "acceptees": 763,
+      "acceptanceRate": 0.26,
+      "weight": 0.018919511471646527
+    },
+    {
+      "gpaBin": "3.00-3.19",
+      "gpaCenter": 3.1,
+      "gpaLower": 3.0,
+      "gpaUpper": 3.2,
+      "mcatBin": "502-505",
+      "mcatCenter": 503.5,
+      "mcatLower": 502,
+      "mcatUpper": 506,
+      "applicants": 2712,
+      "acceptees": 896,
+      "acceptanceRate": 0.33,
+      "weight": 0.01748797379383278
+    },
+    {
+      "gpaBin": "3.00-3.19",
+      "gpaCenter": 3.1,
+      "gpaLower": 3.0,
+      "gpaUpper": 3.2,
+      "mcatBin": "506-509",
+      "mcatCenter": 507.5,
+      "mcatLower": 506,
+      "mcatUpper": 510,
+      "applicants": 2345,
+      "acceptees": 961,
+      "acceptanceRate": 0.41,
+      "weight": 0.015121422767897446
+    },
+    {
+      "gpaBin": "3.00-3.19",
+      "gpaCenter": 3.1,
+      "gpaLower": 3.0,
+      "gpaUpper": 3.2,
+      "mcatBin": "510-513",
+      "mcatCenter": 511.5,
+      "mcatLower": 510,
+      "mcatUpper": 514,
+      "applicants": 1823,
+      "acceptees": 912,
+      "acceptanceRate": 0.5,
+      "weight": 0.01175537471465972
+    },
+    {
+      "gpaBin": "3.00-3.19",
+      "gpaCenter": 3.1,
+      "gpaLower": 3.0,
+      "gpaUpper": 3.2,
+      "mcatBin": "514-517",
+      "mcatCenter": 515.5,
+      "mcatLower": 514,
+      "mcatUpper": 518,
+      "applicants": 1156,
+      "acceptees": 682,
+      "acceptanceRate": 0.59,
+      "weight": 0.007454313313300404
+    },
+    {
+      "gpaBin": "3.00-3.19",
+      "gpaCenter": 3.1,
+      "gpaLower": 3.0,
+      "gpaUpper": 3.2,
+      "mcatBin": ">517",
+      "mcatCenter": 521,
+      "mcatLower": 518,
+      "mcatUpper": 528,
+      "applicants": 723,
+      "acceptees": 491,
+      "acceptanceRate": 0.679,
+      "weight": 0.0046621700047717925
+    },
+    {
+      "gpaBin": "3.20-3.39",
+      "gpaCenter": 3.3,
+      "gpaLower": 3.2,
+      "gpaUpper": 3.4,
+      "mcatBin": "<486",
+      "mcatCenter": 483,
+      "mcatLower": 472,
+      "mcatUpper": 486,
+      "applicants": 1456,
+      "acceptees": 87,
+      "acceptanceRate": 0.06,
+      "weight": 0.009388823688724384
+    },
+    {
+      "gpaBin": "3.20-3.39",
+      "gpaCenter": 3.3,
+      "gpaLower": 3.2,
+      "gpaUpper": 3.4,
+      "mcatBin": "486-489",
+      "mcatCenter": 487.5,
+      "mcatLower": 486,
+      "mcatUpper": 490,
+      "applicants": 1678,
+      "acceptees": 185,
+      "acceptanceRate": 0.11,
+      "weight": 0.010820361366538129
+    },
+    {
+      "gpaBin": "3.20-3.39",
+      "gpaCenter": 3.3,
+      "gpaLower": 3.2,
+      "gpaUpper": 3.4,
+      "mcatBin": "490-493",
+      "mcatCenter": 491.5,
+      "mcatLower": 490,
+      "mcatUpper": 494,
+      "applicants": 2534,
+      "acceptees": 431,
+      "acceptanceRate": 0.17,
+      "weight": 0.016340164304414553
+    },
+    {
+      "gpaBin": "3.20-3.39",
+      "gpaCenter": 3.3,
+      "gpaLower": 3.2,
+      "gpaUpper": 3.4,
+      "mcatBin": "494-497",
+      "mcatCenter": 495.5,
+      "mcatLower": 494,
+      "mcatUpper": 498,
+      "applicants": 3289,
+      "acceptees": 757,
+      "acceptanceRate": 0.23,
+      "weight": 0.021208682082564902
+    },
+    {
+      "gpaBin": "3.20-3.39",
+      "gpaCenter": 3.3,
+      "gpaLower": 3.2,
+      "gpaUpper": 3.4,
+      "mcatBin": "498-501",
+      "mcatCenter": 499.5,
+      "mcatLower": 498,
+      "mcatUpper": 502,
+      "applicants": 3912,
+      "acceptees": 1174,
+      "acceptanceRate": 0.3,
+      "weight": 0.025226015295528703
+    },
+    {
+      "gpaBin": "3.20-3.39",
+      "gpaCenter": 3.3,
+      "gpaLower": 3.2,
+      "gpaUpper": 3.4,
+      "mcatBin": "502-505",
+      "mcatCenter": 503.5,
+      "mcatLower": 502,
+      "mcatUpper": 506,
+      "applicants": 3678,
+      "acceptees": 1398,
+      "acceptanceRate": 0.38,
+      "weight": 0.023717097202697997
+    },
+    {
+      "gpaBin": "3.20-3.39",
+      "gpaCenter": 3.3,
+      "gpaLower": 3.2,
+      "gpaUpper": 3.4,
+      "mcatBin": "506-509",
+      "mcatCenter": 507.5,
+      "mcatLower": 506,
+      "mcatUpper": 510,
+      "applicants": 3234,
+      "acceptees": 1488,
+      "acceptanceRate": 0.46,
+      "weight": 0.020854021847070508
+    },
+    {
+      "gpaBin": "3.20-3.39",
+      "gpaCenter": 3.3,
+      "gpaLower": 3.2,
+      "gpaUpper": 3.4,
+      "mcatBin": "510-513",
+      "mcatCenter": 511.5,
+      "mcatLower": 510,
+      "mcatUpper": 514,
+      "applicants": 2678,
+      "acceptees": 1473,
+      "acceptanceRate": 0.55,
+      "weight": 0.017268729284618062
+    },
+    {
+      "gpaBin": "3.20-3.39",
+      "gpaCenter": 3.3,
+      "gpaLower": 3.2,
+      "gpaUpper": 3.4,
+      "mcatBin": "514-517",
+      "mcatCenter": 515.5,
+      "mcatLower": 514,
+      "mcatUpper": 518,
+      "applicants": 1823,
+      "acceptees": 1131,
+      "acceptanceRate": 0.62,
+      "weight": 0.01175537471465972
+    },
+    {
+      "gpaBin": "3.20-3.39",
+      "gpaCenter": 3.3,
+      "gpaLower": 3.2,
+      "gpaUpper": 3.4,
+      "mcatBin": ">517",
+      "mcatCenter": 521,
+      "mcatLower": 518,
+      "mcatUpper": 528,
+      "applicants": 1189,
+      "acceptees": 832,
+      "acceptanceRate": 0.7,
+      "weight": 0.0076671094545970415
+    },
+    {
+      "gpaBin": "3.40-3.59",
+      "gpaCenter": 3.5,
+      "gpaLower": 3.4,
+      "gpaUpper": 3.6,
+      "mcatBin": "<486",
+      "mcatCenter": 483,
+      "mcatLower": 472,
+      "mcatUpper": 486,
+      "applicants": 1234,
+      "acceptees": 86,
+      "acceptanceRate": 0.07,
+      "weight": 0.007957286010910638
+    },
+    {
+      "gpaBin": "3.40-3.59",
+      "gpaCenter": 3.5,
+      "gpaLower": 3.4,
+      "gpaUpper": 3.6,
+      "mcatBin": "486-489",
+      "mcatCenter": 487.5,
+      "mcatLower": 486,
+      "mcatUpper": 490,
+      "applicants": 1567,
+      "acceptees": 204,
+      "acceptanceRate": 0.13,
+      "weight": 0.010104592527631257
+    },
+    {
+      "gpaBin": "3.40-3.59",
+      "gpaCenter": 3.5,
+      "gpaLower": 3.4,
+      "gpaUpper": 3.6,
+      "mcatBin": "490-493",
+      "mcatCenter": 491.5,
+      "mcatLower": 490,
+      "mcatUpper": 494,
+      "applicants": 2412,
+      "acceptees": 483,
+      "acceptanceRate": 0.2,
+      "weight": 0.0155534634184088
+    },
+    {
+      "gpaBin": "3.40-3.59",
+      "gpaCenter": 3.5,
+      "gpaLower": 3.4,
+      "gpaUpper": 3.6,
+      "mcatBin": "494-497",
+      "mcatCenter": 495.5,
+      "mcatLower": 494,
+      "mcatUpper": 498,
+      "applicants": 3345,
+      "acceptees": 903,
+      "acceptanceRate": 0.27,
+      "weight": 0.021569790685977377
+    },
+    {
+      "gpaBin": "3.40-3.59",
+      "gpaCenter": 3.5,
+      "gpaLower": 3.4,
+      "gpaUpper": 3.6,
+      "mcatBin": "498-501",
+      "mcatCenter": 499.5,
+      "mcatLower": 498,
+      "mcatUpper": 502,
+      "applicants": 4123,
+      "acceptees": 1443,
+      "acceptanceRate": 0.35,
+      "weight": 0.026586620926243566
+    },
+    {
+      "gpaBin": "3.40-3.59",
+      "gpaCenter": 3.5,
+      "gpaLower": 3.4,
+      "gpaUpper": 3.6,
+      "mcatBin": "502-505",
+      "mcatCenter": 503.5,
+      "mcatLower": 502,
+      "mcatUpper": 506,
+      "applicants": 4012,
+      "acceptees": 1725,
+      "acceptanceRate": 0.43,
+      "weight": 0.025870852087336697
+    },
+    {
+      "gpaBin": "3.40-3.59",
+      "gpaCenter": 3.5,
+      "gpaLower": 3.4,
+      "gpaUpper": 3.6,
+      "mcatBin": "506-509",
+      "mcatCenter": 507.5,
+      "mcatLower": 506,
+      "mcatUpper": 510,
+      "applicants": 3678,
+      "acceptees": 1912,
+      "acceptanceRate": 0.52,
+      "weight": 0.023717097202697997
+    },
+    {
+      "gpaBin": "3.40-3.59",
+      "gpaCenter": 3.5,
+      "gpaLower": 3.4,
+      "gpaUpper": 3.6,
+      "mcatBin": "510-513",
+      "mcatCenter": 511.5,
+      "mcatLower": 510,
+      "mcatUpper": 514,
+      "applicants": 3234,
+      "acceptees": 1940,
+      "acceptanceRate": 0.6,
+      "weight": 0.020854021847070508
+    },
+    {
+      "gpaBin": "3.40-3.59",
+      "gpaCenter": 3.5,
+      "gpaLower": 3.4,
+      "gpaUpper": 3.6,
+      "mcatBin": "514-517",
+      "mcatCenter": 515.5,
+      "mcatLower": 514,
+      "mcatUpper": 518,
+      "applicants": 2456,
+      "acceptees": 1645,
+      "acceptanceRate": 0.67,
+      "weight": 0.01583719160680432
+    },
+    {
+      "gpaBin": "3.40-3.59",
+      "gpaCenter": 3.5,
+      "gpaLower": 3.4,
+      "gpaUpper": 3.6,
+      "mcatBin": ">517",
+      "mcatCenter": 521,
+      "mcatLower": 518,
+      "mcatUpper": 528,
+      "applicants": 1678,
+      "acceptees": 1259,
+      "acceptanceRate": 0.75,
+      "weight": 0.010820361366538129
+    },
+    {
+      "gpaBin": "3.60-3.79",
+      "gpaCenter": 3.7,
+      "gpaLower": 3.6,
+      "gpaUpper": 3.8,
+      "mcatBin": "<486",
+      "mcatCenter": 483,
+      "mcatLower": 472,
+      "mcatUpper": 486,
+      "applicants": 912,
+      "acceptees": 73,
+      "acceptanceRate": 0.08,
+      "weight": 0.0058809115412889
+    },
+    {
+      "gpaBin": "3.60-3.79",
+      "gpaCenter": 3.7,
+      "gpaLower": 3.6,
+      "gpaUpper": 3.8,
+      "mcatBin": "486-489",
+      "mcatCenter": 487.5,
+      "mcatLower": 486,
+      "mcatUpper": 490,
+      "applicants": 1234,
+      "acceptees": 185,
+      "acceptanceRate": 0.15,
+      "weight": 0.007957286010910638
+    },
+    {
+      "gpaBin": "3.60-3.79",
+      "gpaCenter": 3.7,
+      "gpaLower": 3.6,
+      "gpaUpper": 3.8,
+      "mcatBin": "490-493",
+      "mcatCenter": 491.5,
+      "mcatLower": 490,
+      "mcatUpper": 494,
+      "applicants": 1989,
+      "acceptees": 458,
+      "acceptanceRate": 0.23,
+      "weight": 0.012825803789060989
+    },
+    {
+      "gpaBin": "3.60-3.79",
+      "gpaCenter": 3.7,
+      "gpaLower": 3.6,
+      "gpaUpper": 3.8,
+      "mcatBin": "494-497",
+      "mcatCenter": 495.5,
+      "mcatLower": 494,
+      "mcatUpper": 498,
+      "applicants": 2867,
+      "acceptees": 889,
+      "acceptanceRate": 0.31,
+      "weight": 0.01848747082113517
+    },
+    {
+      "gpaBin": "3.60-3.79",
+      "gpaCenter": 3.7,
+      "gpaLower": 3.6,
+      "gpaUpper": 3.8,
+      "mcatBin": "498-501",
+      "mcatCenter": 499.5,
+      "mcatLower": 498,
+      "mcatUpper": 502,
+      "applicants": 3712,
+      "acceptees": 1485,
+      "acceptanceRate": 0.4,
+      "weight": 0.023936341711912716
+    },
+    {
+      "gpaBin": "3.60-3.79",
+      "gpaCenter": 3.7,
+      "gpaLower": 3.6,
+      "gpaUpper": 3.8,
+      "mcatBin": "502-505",
+      "mcatCenter": 503.5,
+      "mcatLower": 502,
+      "mcatUpper": 506,
+      "applicants": 3934,
+      "acceptees": 1888,
+      "acceptanceRate": 0.48,
+      "weight": 0.02536787938972646
+    },
+    {
+      "gpaBin": "3.60-3.79",
+      "gpaCenter": 3.7,
+      "gpaLower": 3.6,
+      "gpaUpper": 3.8,
+      "mcatBin": "506-509",
+      "mcatCenter": 507.5,
+      "mcatLower": 506,
+      "mcatUpper": 510,
+      "applicants": 3823,
+      "acceptees": 2179,
+      "acceptanceRate": 0.57,
+      "weight": 0.02465211055081959
+    },
+    {
+      "gpaBin": "3.60-3.79",
+      "gpaCenter": 3.7,
+      "gpaLower": 3.6,
+      "gpaUpper": 3.8,
+      "mcatBin": "510-513",
+      "mcatCenter": 511.5,
+      "mcatLower": 510,
+      "mcatUpper": 514,
+      "applicants": 3567,
+      "acceptees": 2354,
+      "acceptanceRate": 0.66,
+      "weight": 0.023001328363791124
+    },
+    {
+      "gpaBin": "3.60-3.79",
+      "gpaCenter": 3.7,
+      "gpaLower": 3.6,
+      "gpaUpper": 3.8,
+      "mcatBin": "514-517",
+      "mcatCenter": 515.5,
+      "mcatLower": 514,
+      "mcatUpper": 518,
+      "applicants": 2934,
+      "acceptees": 2142,
+      "acceptanceRate": 0.73,
+      "weight": 0.018919511471646527
+    },
+    {
+      "gpaBin": "3.60-3.79",
+      "gpaCenter": 3.7,
+      "gpaLower": 3.6,
+      "gpaUpper": 3.8,
+      "mcatBin": ">517",
+      "mcatCenter": 521,
+      "mcatLower": 518,
+      "mcatUpper": 528,
+      "applicants": 2189,
+      "acceptees": 1751,
+      "acceptanceRate": 0.8,
+      "weight": 0.014115477372676976
+    },
+    {
+      "gpaBin": "\u22653.80",
+      "gpaCenter": 3.9,
+      "gpaLower": 3.8,
+      "gpaUpper": 4.0,
+      "mcatBin": "<486",
+      "mcatCenter": 483,
+      "mcatLower": 472,
+      "mcatUpper": 486,
+      "applicants": 567,
+      "acceptees": 57,
+      "acceptanceRate": 0.101,
+      "weight": 0.0036562246095513226
+    },
+    {
+      "gpaBin": "\u22653.80",
+      "gpaCenter": 3.9,
+      "gpaLower": 3.8,
+      "gpaUpper": 4.0,
+      "mcatBin": "486-489",
+      "mcatCenter": 487.5,
+      "mcatLower": 486,
+      "mcatUpper": 490,
+      "applicants": 823,
+      "acceptees": 148,
+      "acceptanceRate": 0.18,
+      "weight": 0.005307006796579786
+    },
+    {
+      "gpaBin": "\u22653.80",
+      "gpaCenter": 3.9,
+      "gpaLower": 3.8,
+      "gpaUpper": 4.0,
+      "mcatBin": "490-493",
+      "mcatCenter": 491.5,
+      "mcatLower": 490,
+      "mcatUpper": 494,
+      "applicants": 1345,
+      "acceptees": 350,
+      "acceptanceRate": 0.26,
+      "weight": 0.008673054849817511
+    },
+    {
+      "gpaBin": "\u22653.80",
+      "gpaCenter": 3.9,
+      "gpaLower": 3.8,
+      "gpaUpper": 4.0,
+      "mcatBin": "494-497",
+      "mcatCenter": 495.5,
+      "mcatLower": 494,
+      "mcatUpper": 498,
+      "applicants": 2123,
+      "acceptees": 722,
+      "acceptanceRate": 0.34,
+      "weight": 0.0136898850900837
+    },
+    {
+      "gpaBin": "\u22653.80",
+      "gpaCenter": 3.9,
+      "gpaLower": 3.8,
+      "gpaUpper": 4.0,
+      "mcatBin": "498-501",
+      "mcatCenter": 499.5,
+      "mcatLower": 498,
+      "mcatUpper": 502,
+      "applicants": 2934,
+      "acceptees": 1291,
+      "acceptanceRate": 0.44,
+      "weight": 0.018919511471646527
+    },
+    {
+      "gpaBin": "\u22653.80",
+      "gpaCenter": 3.9,
+      "gpaLower": 3.8,
+      "gpaUpper": 4.0,
+      "mcatBin": "502-505",
+      "mcatCenter": 503.5,
+      "mcatLower": 502,
+      "mcatUpper": 506,
+      "applicants": 3456,
+      "acceptees": 1797,
+      "acceptanceRate": 0.52,
+      "weight": 0.02228555952488425
+    },
+    {
+      "gpaBin": "\u22653.80",
+      "gpaCenter": 3.9,
+      "gpaLower": 3.8,
+      "gpaUpper": 4.0,
+      "mcatBin": "506-509",
+      "mcatCenter": 507.5,
+      "mcatLower": 506,
+      "mcatUpper": 510,
+      "applicants": 3789,
+      "acceptees": 2311,
+      "acceptanceRate": 0.61,
+      "weight": 0.02443286604160487
+    },
+    {
+      "gpaBin": "\u22653.80",
+      "gpaCenter": 3.9,
+      "gpaLower": 3.8,
+      "gpaUpper": 4.0,
+      "mcatBin": "510-513",
+      "mcatCenter": 511.5,
+      "mcatLower": 510,
+      "mcatUpper": 514,
+      "applicants": 4123,
+      "acceptees": 2887,
+      "acceptanceRate": 0.7,
+      "weight": 0.026586620926243566
+    },
+    {
+      "gpaBin": "\u22653.80",
+      "gpaCenter": 3.9,
+      "gpaLower": 3.8,
+      "gpaUpper": 4.0,
+      "mcatBin": "514-517",
+      "mcatCenter": 515.5,
+      "mcatLower": 514,
+      "mcatUpper": 518,
+      "applicants": 3823,
+      "acceptees": 2944,
+      "acceptanceRate": 0.77,
+      "weight": 0.02465211055081959
+    },
+    {
+      "gpaBin": "\u22653.80",
+      "gpaCenter": 3.9,
+      "gpaLower": 3.8,
+      "gpaUpper": 4.0,
+      "mcatBin": ">517",
+      "mcatCenter": 521,
+      "mcatLower": 518,
+      "mcatUpper": 528,
+      "applicants": 3456,
+      "acceptees": 2903,
+      "acceptanceRate": 0.84,
+      "weight": 0.02228555952488425
+    }
+  ],
+  "grid": {
+    "<2.20": {
+      "<486": {
+        "applicants": 89,
+        "acceptees": 1,
+        "acceptanceRate": 0.011
+      },
+      "486-489": {
+        "applicants": 45,
+        "acceptees": 1,
+        "acceptanceRate": 0.022
+      },
+      "490-493": {
+        "applicants": 52,
+        "acceptees": 2,
+        "acceptanceRate": 0.038
+      },
+      "494-497": {
+        "applicants": 48,
+        "acceptees": 2,
+        "acceptanceRate": 0.042
+      },
+      "498-501": {
+        "applicants": 38,
+        "acceptees": 3,
+        "acceptanceRate": 0.079
+      },
+      "502-505": {
+        "applicants": 25,
+        "acceptees": 3,
+        "acceptanceRate": 0.12
+      },
+      "506-509": {
+        "applicants": 18,
+        "acceptees": 3,
+        "acceptanceRate": 0.167
+      },
+      "510-513": {
+        "applicants": 12,
+        "acceptees": 3,
+        "acceptanceRate": 0.25
+      },
+      "514-517": {
+        "applicants": 6,
+        "acceptees": 2,
+        "acceptanceRate": 0.333
+      },
+      ">517": {
+        "applicants": 4,
+        "acceptees": 2,
+        "acceptanceRate": 0.5
+      }
+    },
+    "2.20-2.39": {
+      "<486": {
+        "applicants": 198,
+        "acceptees": 3,
+        "acceptanceRate": 0.015
+      },
+      "486-489": {
+        "applicants": 142,
+        "acceptees": 4,
+        "acceptanceRate": 0.028
+      },
+      "490-493": {
+        "applicants": 178,
+        "acceptees": 8,
+        "acceptanceRate": 0.045
+      },
+      "494-497": {
+        "applicants": 189,
+        "acceptees": 12,
+        "acceptanceRate": 0.063
+      },
+      "498-501": {
+        "applicants": 168,
+        "acceptees": 16,
+        "acceptanceRate": 0.095
+      },
+      "502-505": {
+        "applicants": 124,
+        "acceptees": 18,
+        "acceptanceRate": 0.145
+      },
+      "506-509": {
+        "applicants": 89,
+        "acceptees": 18,
+        "acceptanceRate": 0.202
+      },
+      "510-513": {
+        "applicants": 56,
+        "acceptees": 16,
+        "acceptanceRate": 0.286
+      },
+      "514-517": {
+        "applicants": 32,
+        "acceptees": 12,
+        "acceptanceRate": 0.375
+      },
+      ">517": {
+        "applicants": 18,
+        "acceptees": 9,
+        "acceptanceRate": 0.5
+      }
+    },
+    "2.40-2.59": {
+      "<486": {
+        "applicants": 412,
+        "acceptees": 8,
+        "acceptanceRate": 0.019
+      },
+      "486-489": {
+        "applicants": 356,
+        "acceptees": 14,
+        "acceptanceRate": 0.039
+      },
+      "490-493": {
+        "applicants": 489,
+        "acceptees": 29,
+        "acceptanceRate": 0.059
+      },
+      "494-497": {
+        "applicants": 534,
+        "acceptees": 48,
+        "acceptanceRate": 0.09
+      },
+      "498-501": {
+        "applicants": 512,
+        "acceptees": 67,
+        "acceptanceRate": 0.131
+      },
+      "502-505": {
+        "applicants": 423,
+        "acceptees": 78,
+        "acceptanceRate": 0.184
+      },
+      "506-509": {
+        "applicants": 312,
+        "acceptees": 78,
+        "acceptanceRate": 0.25
+      },
+      "510-513": {
+        "applicants": 198,
+        "acceptees": 65,
+        "acceptanceRate": 0.328
+      },
+      "514-517": {
+        "applicants": 112,
+        "acceptees": 48,
+        "acceptanceRate": 0.429
+      },
+      ">517": {
+        "applicants": 67,
+        "acceptees": 35,
+        "acceptanceRate": 0.522
+      }
+    },
+    "2.60-2.79": {
+      "<486": {
+        "applicants": 678,
+        "acceptees": 18,
+        "acceptanceRate": 0.027
+      },
+      "486-489": {
+        "applicants": 623,
+        "acceptees": 34,
+        "acceptanceRate": 0.055
+      },
+      "490-493": {
+        "applicants": 912,
+        "acceptees": 73,
+        "acceptanceRate": 0.08
+      },
+      "494-497": {
+        "applicants": 1089,
+        "acceptees": 131,
+        "acceptanceRate": 0.12
+      },
+      "498-501": {
+        "applicants": 1156,
+        "acceptees": 197,
+        "acceptanceRate": 0.17
+      },
+      "502-505": {
+        "applicants": 1023,
+        "acceptees": 235,
+        "acceptanceRate": 0.23
+      },
+      "506-509": {
+        "applicants": 812,
+        "acceptees": 252,
+        "acceptanceRate": 0.31
+      },
+      "510-513": {
+        "applicants": 534,
+        "acceptees": 214,
+        "acceptanceRate": 0.401
+      },
+      "514-517": {
+        "applicants": 312,
+        "acceptees": 153,
+        "acceptanceRate": 0.49
+      },
+      ">517": {
+        "applicants": 178,
+        "acceptees": 103,
+        "acceptanceRate": 0.579
+      }
+    },
+    "2.80-2.99": {
+      "<486": {
+        "applicants": 1023,
+        "acceptees": 41,
+        "acceptanceRate": 0.04
+      },
+      "486-489": {
+        "applicants": 978,
+        "acceptees": 69,
+        "acceptanceRate": 0.071
+      },
+      "490-493": {
+        "applicants": 1456,
+        "acceptees": 160,
+        "acceptanceRate": 0.11
+      },
+      "494-497": {
+        "applicants": 1823,
+        "acceptees": 292,
+        "acceptanceRate": 0.16
+      },
+      "498-501": {
+        "applicants": 2012,
+        "acceptees": 443,
+        "acceptanceRate": 0.22
+      },
+      "502-505": {
+        "applicants": 1834,
+        "acceptees": 532,
+        "acceptanceRate": 0.29
+      },
+      "506-509": {
+        "applicants": 1567,
+        "acceptees": 564,
+        "acceptanceRate": 0.36
+      },
+      "510-513": {
+        "applicants": 1123,
+        "acceptees": 505,
+        "acceptanceRate": 0.45
+      },
+      "514-517": {
+        "applicants": 678,
+        "acceptees": 366,
+        "acceptanceRate": 0.54
+      },
+      ">517": {
+        "applicants": 412,
+        "acceptees": 263,
+        "acceptanceRate": 0.638
+      }
+    },
+    "3.00-3.19": {
+      "<486": {
+        "applicants": 1289,
+        "acceptees": 65,
+        "acceptanceRate": 0.05
+      },
+      "486-489": {
+        "applicants": 1345,
+        "acceptees": 121,
+        "acceptanceRate": 0.09
+      },
+      "490-493": {
+        "applicants": 1978,
+        "acceptees": 277,
+        "acceptanceRate": 0.14
+      },
+      "494-497": {
+        "applicants": 2567,
+        "acceptees": 488,
+        "acceptanceRate": 0.19
+      },
+      "498-501": {
+        "applicants": 2934,
+        "acceptees": 763,
+        "acceptanceRate": 0.26
+      },
+      "502-505": {
+        "applicants": 2712,
+        "acceptees": 896,
+        "acceptanceRate": 0.33
+      },
+      "506-509": {
+        "applicants": 2345,
+        "acceptees": 961,
+        "acceptanceRate": 0.41
+      },
+      "510-513": {
+        "applicants": 1823,
+        "acceptees": 912,
+        "acceptanceRate": 0.5
+      },
+      "514-517": {
+        "applicants": 1156,
+        "acceptees": 682,
+        "acceptanceRate": 0.59
+      },
+      ">517": {
+        "applicants": 723,
+        "acceptees": 491,
+        "acceptanceRate": 0.679
+      }
+    },
+    "3.20-3.39": {
+      "<486": {
+        "applicants": 1456,
+        "acceptees": 87,
+        "acceptanceRate": 0.06
+      },
+      "486-489": {
+        "applicants": 1678,
+        "acceptees": 185,
+        "acceptanceRate": 0.11
+      },
+      "490-493": {
+        "applicants": 2534,
+        "acceptees": 431,
+        "acceptanceRate": 0.17
+      },
+      "494-497": {
+        "applicants": 3289,
+        "acceptees": 757,
+        "acceptanceRate": 0.23
+      },
+      "498-501": {
+        "applicants": 3912,
+        "acceptees": 1174,
+        "acceptanceRate": 0.3
+      },
+      "502-505": {
+        "applicants": 3678,
+        "acceptees": 1398,
+        "acceptanceRate": 0.38
+      },
+      "506-509": {
+        "applicants": 3234,
+        "acceptees": 1488,
+        "acceptanceRate": 0.46
+      },
+      "510-513": {
+        "applicants": 2678,
+        "acceptees": 1473,
+        "acceptanceRate": 0.55
+      },
+      "514-517": {
+        "applicants": 1823,
+        "acceptees": 1131,
+        "acceptanceRate": 0.62
+      },
+      ">517": {
+        "applicants": 1189,
+        "acceptees": 832,
+        "acceptanceRate": 0.7
+      }
+    },
+    "3.40-3.59": {
+      "<486": {
+        "applicants": 1234,
+        "acceptees": 86,
+        "acceptanceRate": 0.07
+      },
+      "486-489": {
+        "applicants": 1567,
+        "acceptees": 204,
+        "acceptanceRate": 0.13
+      },
+      "490-493": {
+        "applicants": 2412,
+        "acceptees": 483,
+        "acceptanceRate": 0.2
+      },
+      "494-497": {
+        "applicants": 3345,
+        "acceptees": 903,
+        "acceptanceRate": 0.27
+      },
+      "498-501": {
+        "applicants": 4123,
+        "acceptees": 1443,
+        "acceptanceRate": 0.35
+      },
+      "502-505": {
+        "applicants": 4012,
+        "acceptees": 1725,
+        "acceptanceRate": 0.43
+      },
+      "506-509": {
+        "applicants": 3678,
+        "acceptees": 1912,
+        "acceptanceRate": 0.52
+      },
+      "510-513": {
+        "applicants": 3234,
+        "acceptees": 1940,
+        "acceptanceRate": 0.6
+      },
+      "514-517": {
+        "applicants": 2456,
+        "acceptees": 1645,
+        "acceptanceRate": 0.67
+      },
+      ">517": {
+        "applicants": 1678,
+        "acceptees": 1259,
+        "acceptanceRate": 0.75
+      }
+    },
+    "3.60-3.79": {
+      "<486": {
+        "applicants": 912,
+        "acceptees": 73,
+        "acceptanceRate": 0.08
+      },
+      "486-489": {
+        "applicants": 1234,
+        "acceptees": 185,
+        "acceptanceRate": 0.15
+      },
+      "490-493": {
+        "applicants": 1989,
+        "acceptees": 458,
+        "acceptanceRate": 0.23
+      },
+      "494-497": {
+        "applicants": 2867,
+        "acceptees": 889,
+        "acceptanceRate": 0.31
+      },
+      "498-501": {
+        "applicants": 3712,
+        "acceptees": 1485,
+        "acceptanceRate": 0.4
+      },
+      "502-505": {
+        "applicants": 3934,
+        "acceptees": 1888,
+        "acceptanceRate": 0.48
+      },
+      "506-509": {
+        "applicants": 3823,
+        "acceptees": 2179,
+        "acceptanceRate": 0.57
+      },
+      "510-513": {
+        "applicants": 3567,
+        "acceptees": 2354,
+        "acceptanceRate": 0.66
+      },
+      "514-517": {
+        "applicants": 2934,
+        "acceptees": 2142,
+        "acceptanceRate": 0.73
+      },
+      ">517": {
+        "applicants": 2189,
+        "acceptees": 1751,
+        "acceptanceRate": 0.8
+      }
+    },
+    "\u22653.80": {
+      "<486": {
+        "applicants": 567,
+        "acceptees": 57,
+        "acceptanceRate": 0.101
+      },
+      "486-489": {
+        "applicants": 823,
+        "acceptees": 148,
+        "acceptanceRate": 0.18
+      },
+      "490-493": {
+        "applicants": 1345,
+        "acceptees": 350,
+        "acceptanceRate": 0.26
+      },
+      "494-497": {
+        "applicants": 2123,
+        "acceptees": 722,
+        "acceptanceRate": 0.34
+      },
+      "498-501": {
+        "applicants": 2934,
+        "acceptees": 1291,
+        "acceptanceRate": 0.44
+      },
+      "502-505": {
+        "applicants": 3456,
+        "acceptees": 1797,
+        "acceptanceRate": 0.52
+      },
+      "506-509": {
+        "applicants": 3789,
+        "acceptees": 2311,
+        "acceptanceRate": 0.61
+      },
+      "510-513": {
+        "applicants": 4123,
+        "acceptees": 2887,
+        "acceptanceRate": 0.7
+      },
+      "514-517": {
+        "applicants": 3823,
+        "acceptees": 2944,
+        "acceptanceRate": 0.77
+      },
+      ">517": {
+        "applicants": 3456,
+        "acceptees": 2903,
+        "acceptanceRate": 0.84
+      }
+    }
+  }
+}

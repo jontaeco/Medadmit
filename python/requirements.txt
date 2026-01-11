@@ -1,0 +1,10 @@
+# MedAdmit Python Dependencies
+# Used for parameter fitting and data processing
+
+# Core scientific computing
+numpy>=1.24.0
+scipy>=1.11.0
+pandas>=2.0.0
+
+# Optional: For Bayesian fitting (if available)
+# pymc>=5.0.0  # Has complex dependencies, use scipy.optimize as fallback

@@ -1,0 +1,237 @@
+{
+  "metadata": {
+    "source": "AAMC FACTS Table A-18",
+    "url": "https://www.aamc.org/data-reports/students-residents/interactive-data/facts-applicants-and-matriculants-data",
+    "retrievedAt": "2025-11-15",
+    "version": "2024.1.0",
+    "academicYear": "2023-2024",
+    "citation": "Association of American Medical Colleges. Table A-18: MCAT Scores and GPAs for Applicants and Matriculants to U.S. MD-Granting Medical Schools by Race/Ethnicity. AAMC, 2024.",
+    "notes": "Data represents single application cycle. URM includes Black/African American, Hispanic/Latino, and American Indian/Alaska Native.",
+    "processedAt": "2026-01-11",
+    "processingVersion": "1.0.0",
+    "urmDefinition": [
+      "American Indian or Alaska Native",
+      "Black or African American",
+      "Hispanic, Latino, or of Spanish Origin",
+      "Native Hawaiian or Other Pacific Islander"
+    ]
+  },
+  "byRaceEthnicity": {
+    "American Indian or Alaska Native": {
+      "applicants": 312,
+      "matriculants": 98,
+      "rawAcceptanceRate": 0.314,
+      "avgMCAT": 504.2,
+      "avgGPA": 3.48,
+      "oddsRatio": 6.5,
+      "oddsRatioCI": [
+        4.2,
+        10.1
+      ],
+      "logitEffect": 1.8718,
+      "logitEffectCI": [
+        1.4351,
+        2.3125
+      ],
+      "logitEffectSE": 0.2238,
+      "isURM": true,
+      "evidenceLevel": "moderate"
+    },
+    "Asian": {
+      "applicants": 13245,
+      "matriculants": 4812,
+      "rawAcceptanceRate": 0.363,
+      "avgMCAT": 515.8,
+      "avgGPA": 3.72,
+      "oddsRatio": 0.85,
+      "oddsRatioCI": [
+        0.78,
+        0.93
+      ],
+      "logitEffect": -0.1625,
+      "logitEffectCI": [
+        -0.2485,
+        -0.0726
+      ],
+      "logitEffectSE": 0.0449,
+      "isURM": false,
+      "evidenceLevel": "strong"
+    },
+    "Black or African American": {
+      "applicants": 5423,
+      "matriculants": 2156,
+      "rawAcceptanceRate": 0.398,
+      "avgMCAT": 504.6,
+      "avgGPA": 3.42,
+      "oddsRatio": 7.0,
+      "oddsRatioCI": [
+        5.8,
+        8.5
+      ],
+      "logitEffect": 1.9459,
+      "logitEffectCI": [
+        1.7579,
+        2.1401
+      ],
+      "logitEffectSE": 0.0975,
+      "isURM": true,
+      "evidenceLevel": "strong"
+    },
+    "Hispanic, Latino, or of Spanish Origin": {
+      "applicants": 4567,
+      "matriculants": 1834,
+      "rawAcceptanceRate": 0.401,
+      "avgMCAT": 506.3,
+      "avgGPA": 3.51,
+      "oddsRatio": 4.0,
+      "oddsRatioCI": [
+        3.2,
+        5.0
+      ],
+      "logitEffect": 1.3863,
+      "logitEffectCI": [
+        1.1632,
+        1.6094
+      ],
+      "logitEffectSE": 0.1138,
+      "isURM": true,
+      "evidenceLevel": "strong"
+    },
+    "Native Hawaiian or Other Pacific Islander": {
+      "applicants": 89,
+      "matriculants": 28,
+      "rawAcceptanceRate": 0.315,
+      "avgMCAT": 505.1,
+      "avgGPA": 3.45,
+      "oddsRatio": 5.5,
+      "oddsRatioCI": [
+        3.0,
+        10.0
+      ],
+      "logitEffect": 1.7047,
+      "logitEffectCI": [
+        1.0986,
+        2.3026
+      ],
+      "logitEffectSE": 0.3071,
+      "isURM": true,
+      "evidenceLevel": "weak"
+    },
+    "White": {
+      "applicants": 23456,
+      "matriculants": 10234,
+      "rawAcceptanceRate": 0.436,
+      "avgMCAT": 512.4,
+      "avgGPA": 3.68,
+      "oddsRatio": 1.0,
+      "oddsRatioCI": [
+        1.0,
+        1.0
+      ],
+      "logitEffect": 0.0,
+      "logitEffectCI": [
+        0.0,
+        0.0
+      ],
+      "logitEffectSE": 0.0,
+      "isURM": false,
+      "evidenceLevel": "reference"
+    },
+    "Multiple Race/Ethnicity": {
+      "applicants": 3456,
+      "matriculants": 1423,
+      "rawAcceptanceRate": 0.412,
+      "avgMCAT": 511.2,
+      "avgGPA": 3.62,
+      "oddsRatio": 1.5,
+      "oddsRatioCI": [
+        1.2,
+        1.9
+      ],
+      "logitEffect": 0.4055,
+      "logitEffectCI": [
+        0.1823,
+        0.6419
+      ],
+      "logitEffectSE": 0.1172,
+      "isURM": false,
+      "evidenceLevel": "moderate"
+    },
+    "Other": {
+      "applicants": 1234,
+      "matriculants": 478,
+      "rawAcceptanceRate": 0.387,
+      "avgMCAT": 510.5,
+      "avgGPA": 3.58,
+      "oddsRatio": 1.0,
+      "oddsRatioCI": [
+        0.8,
+        1.3
+      ],
+      "logitEffect": 0.0,
+      "logitEffectCI": [
+        -0.2231,
+        0.2624
+      ],
+      "logitEffectSE": 0.1239,
+      "isURM": false,
+      "evidenceLevel": "weak"
+    },
+    "Unknown": {
+      "applicants": 2345,
+      "matriculants": 923,
+      "rawAcceptanceRate": 0.394,
+      "avgMCAT": 511.8,
+      "avgGPA": 3.64,
+      "oddsRatio": 1.0,
+      "oddsRatioCI": [
+        0.9,
+        1.1
+      ],
+      "logitEffect": 0.0,
+      "logitEffectCI": [
+        -0.1054,
+        0.0953
+      ],
+      "logitEffectSE": 0.0512,
+      "isURM": false,
+      "evidenceLevel": "moderate"
+    }
+  },
+  "urmAggregate": {
+    "categories": [
+      "American Indian or Alaska Native",
+      "Black or African American",
+      "Hispanic, Latino, or of Spanish Origin",
+      "Native Hawaiian or Other Pacific Islander"
+    ],
+    "totalApplicants": 10391,
+    "totalMatriculants": 4116,
+    "rawAcceptanceRate": 0.3961,
+    "weightedOddsRatio": 5.45,
+    "logitEffect": 1.6957,
+    "notes": "Geometric mean of subgroup ORs, weighted by applicant count"
+  },
+  "modelEffects": {
+    "urm": {
+      "mean": 1.6957,
+      "sd": 0.4,
+      "source": "A-18 weighted aggregate + BMC Med Ed 2023"
+    },
+    "urmBlack": {
+      "mean": 1.9459,
+      "sd": 0.3,
+      "source": "BMC Med Ed 2023"
+    },
+    "urmHispanic": {
+      "mean": 1.3863,
+      "sd": 0.3,
+      "source": "BMC Med Ed 2023"
+    },
+    "asian": {
+      "mean": -0.1625,
+      "sd": 0.15,
+      "source": "BMC Med Ed 2023 - slight disadvantage at same stats"
+    }
+  }
+}
