@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "generatedAt": "2026-01-12",
+    "sources": [
+      "AAMC Table A-18 (2023-2024)",
+      "BMC Medical Education 2023",
+      "WWAMI program studies",
+      "Holistic review literature"
+    ],
+    "notes": [
+      "All effects on logit scale: logit(P) = ... + \u03b2 * I(feature)",
+      "Positive \u03b2 increases acceptance probability",
+      "SD represents uncertainty, not just sampling error",
+      "School-level variances control shrinkage toward mean"
+    ]
+  },
+  "raceEthnicity": {
+    "american_indian_or_alaska_native": {
+      "mean": 1.8718,
+      "sd": 0.4476,
+      "ci95": [
+        1.4351,
+        2.3125
+      ],
+      "oddsRatio": 6.5,
+      "isURM": true,
+      "evidenceLevel": "moderate",
+      "source": "AAMC A-18 2023-2024"
+    },
+    "asian": {
+      "mean": -0.1625,
+      "sd": 0.0898,
+      "ci95": [
+        -0.2485,
+        -0.0726
+      ],
+      "oddsRatio": 0.85,
+      "isURM": false,
+      "evidenceLevel": "strong",
+      "source": "AAMC A-18 2023-2024"
+    },
+    "black_or_african_american": {
+      "mean": 1.9459,
+      "sd": 0.195,
+      "ci95": [
+        1.7579,
+        2.1401
+      ],
+      "oddsRatio": 7.0,
+      "isURM": true,
+      "evidenceLevel": "strong",
+      "source": "AAMC A-18 2023-2024"
+    },
+    "hispanic_latino_or_of_spanish_origin": {
+      "mean": 1.3863,
+      "sd": 0.2276,
+      "ci95": [
+        1.1632,
+        1.6094
+      ],
+      "oddsRatio": 4.0,
+      "isURM": true,
+      "evidenceLevel": "strong",
+      "source": "AAMC A-18 2023-2024"
+    },
+    "native_hawaiian_or_other_pacific_islander": {
+      "mean": 1.7047,
+      "sd": 0.6142,
+      "ci95": [
+        1.0986,
+        2.3026
+      ],
+      "oddsRatio": 5.5,
+      "isURM": true,
+      "evidenceLevel": "weak",
+      "source": "AAMC A-18 2023-2024"
+    },
+    "white": {
+      "mean": 0.0,
+      "sd": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "oddsRatio": 1.0,
+      "isURM": false,
+      "evidenceLevel": "reference",
+      "source": "AAMC A-18 2023-2024"
+    },
+    "multiple_race_or_ethnicity": {
+      "mean": 0.4055,
+      "sd": 0.2344,
+      "ci95": [
+        0.1823,
+        0.6419
+      ],
+      "oddsRatio": 1.5,
+      "isURM": false,
+      "evidenceLevel": "moderate",
+      "source": "AAMC A-18 2023-2024"
+    },
+    "other": {
+      "mean": 0.0,
+      "sd": 0.2478,
+      "ci95": [
+        -0.2231,
+        0.2624
+      ],
+      "oddsRatio": 1.0,
+      "isURM": false,
+      "evidenceLevel": "weak",
+      "source": "AAMC A-18 2023-2024"
+    },
+    "unknown": {
+      "mean": 0.0,
+      "sd": 0.1024,
+      "ci95": [
+        -0.1054,
+        0.0953
+      ],
+      "oddsRatio": 1.0,
+      "isURM": false,
+      "evidenceLevel": "moderate",
+      "source": "AAMC A-18 2023-2024"
+    },
+    "urm_aggregate": {
+      "mean": 1.6957,
+      "sd": 0.4,
+      "oddsRatio": 5.45,
+      "source": "A-18 weighted aggregate + BMC Med Ed 2023"
+    }
+  },
+  "socioeconomic": {
+    "first_generation": {
+      "mean": 0.15,
+      "sd": 0.1,
+      "oddsRatio": 1.16,
+      "source": "Holistic review literature (Addams et al., 2021)",
+      "notes": "Small positive effect; schools value first-gen status"
+    },
+    "disadvantaged_ses": {
+      "mean": 0.22,
+      "sd": 0.12,
+      "oddsRatio": 1.25,
+      "source": "Holistic review literature + AAMC FAP correlation",
+      "notes": "Moderate effect; FAP applicants get holistic consideration"
+    },
+    "rural_background": {
+      "mean": 0.2,
+      "sd": 0.15,
+      "oddsRatio": 1.22,
+      "source": "WWAMI and rural track studies",
+      "notes": "Effect varies greatly by school mission"
+    }
+  },
+  "missionInteractions": {
+    "rural_x_rural": {
+      "mean": 0.4,
+      "sd": 0.2,
+      "oddsRatio": 1.49,
+      "schoolFeature": "ruralMission",
+      "applicantFeature": "isRural",
+      "source": "WWAMI program studies",
+      "notes": "Strong effect for schools with explicit rural mission"
+    },
+    "research_x_research": {
+      "mean": 0.2,
+      "sd": 0.15,
+      "oddsRatio": 1.22,
+      "schoolFeature": "researchIntensive",
+      "applicantFeature": "hasStrongResearch",
+      "source": "Research-focused school admission patterns",
+      "notes": "Modest effect; research schools value research experience"
+    },
+    "hbcu_x_urm_black": {
+      "mean": 0.5,
+      "sd": 0.25,
+      "oddsRatio": 1.65,
+      "schoolFeature": "hbcu",
+      "applicantFeature": "isBlack",
+      "source": "HBCU mission and historical patterns",
+      "notes": "HBCUs have strong mission to train Black physicians"
+    },
+    "diversity_x_urm": {
+      "mean": 0.25,
+      "sd": 0.15,
+      "oddsRatio": 1.28,
+      "schoolFeature": "diversityFocus",
+      "applicantFeature": "isUrm",
+      "source": "Schools with diversity initiatives",
+      "notes": "Schools with diversity focus may give URM additional consideration"
+    },
+    "public_x_instate": {
+      "mean": 0.8,
+      "sd": 0.3,
+      "oddsRatio": 2.23,
+      "schoolFeature": "isPublic",
+      "applicantFeature": "isInState",
+      "source": "MSAR in-state vs OOS rates for public schools",
+      "notes": "Strong effect; public schools funded by state taxes"
+    },
+    "primary_care_x_pc_interest": {
+      "mean": 0.15,
+      "sd": 0.1,
+      "oddsRatio": 1.16,
+      "schoolFeature": "primaryCareFocus",
+      "applicantFeature": "primaryCareInterest",
+      "source": "Primary care track admission patterns",
+      "notes": "Modest effect; schools want mission-aligned students"
+    }
+  },
+  "schoolLevelVariance": {
+    "urm_effect": {
+      "sd": 0.4,
+      "notes": "Large variation; some schools much more URM-friendly"
+    },
+    "ses_effect": {
+      "sd": 0.25,
+      "notes": "Moderate variation in SES consideration"
+    },
+    "instate_effect": {
+      "sd": 0.35,
+      "notes": "Varies by state mandate and funding"
+    },
+    "mission_interaction": {
+      "sd": 0.2,
+      "notes": "Some schools weight mission fit more than others"
+    }
+  },
+  "referenceGroup": {
+    "raceEthnicity": "White",
+    "ses": "Not first-gen, not disadvantaged, not rural",
+    "notes": "All effects relative to reference group"
+  }
+}
