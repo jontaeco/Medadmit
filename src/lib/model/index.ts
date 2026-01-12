@@ -65,5 +65,31 @@ export {
   analyzePredictionDifference,
 } from './two-stage';
 
+// Phase 7: Monte Carlo simulation with correlated random effects
+export {
+  runCorrelatedSimulation,
+  runSimulationFromPredictions,
+  runSingleIteration,
+  sampleNormal,
+  sampleRandomEffects,
+  adjustProbability,
+  randomEffectVariance,
+  aggregateResults,
+  createSeededRandom,
+  estimateInducedCorrelation,
+  computeAllOrNothingScore,
+  DEFAULT_RANDOM_EFFECTS,
+} from './monte-carlo';
+
+// Re-export types from monte-carlo
+export type {
+  SimulationConfig,
+  SimulationResult,
+  RandomEffectSample,
+  IterationResult,
+  SchoolIterationResult,
+  SchoolSimulationStats,
+} from './monte-carlo';
+
 // Future exports (to be implemented in subsequent phases):
-// export { runCorrelatedSimulation } from './monte-carlo';
+// export { calculateUncertainty } from './uncertainty';
