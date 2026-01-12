@@ -2,9 +2,9 @@ import { describe, it, expect } from 'vitest'
 import {
   calculateSchoolProbability,
   calculateAllSchoolProbabilities,
-} from '@/lib/scoring/school-probability'
+} from '@/lib/_legacy/scoring/school-probability'
 import { getSchoolById, getAllSchools } from '@/lib/data'
-import type { ApplicantInput } from '@/lib/scoring/types'
+import type { ApplicantInput } from '@/lib/_legacy/scoring/types'
 
 // Helper to create a base applicant input
 function createApplicant(overrides: Partial<ApplicantInput> = {}): ApplicantInput {

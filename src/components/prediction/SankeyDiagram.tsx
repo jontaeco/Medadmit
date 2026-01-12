@@ -9,7 +9,7 @@ import {
   Layer,
   ResponsiveContainer,
 } from 'recharts'
-import type { PerSchoolOutcome, ModalOutcome, SchoolProbability } from '@/lib/scoring/types'
+import type { PerSchoolOutcome, ModalOutcome, LegacySchoolProbability as SchoolProbability } from '@/lib/model'
 
 interface ApplicantProfile {
   gpa: number

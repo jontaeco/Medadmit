@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import { calculateApplicantScore, getScoreInterpretation } from '@/lib/scoring/applicant-score'
-import type { ApplicantInput } from '@/lib/scoring/types'
+import { calculateApplicantScore, getScoreInterpretation } from '@/lib/_legacy/scoring/applicant-score'
+import type { ApplicantInput } from '@/lib/_legacy/scoring/types'
 
 // Helper to create a base applicant input
 function createApplicant(overrides: Partial<ApplicantInput> = {}): ApplicantInput {

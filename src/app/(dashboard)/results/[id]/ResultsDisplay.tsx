@@ -8,7 +8,7 @@ import { ScoreDisplay } from '@/components/prediction/ScoreDisplay'
 import { SchoolList } from '@/components/prediction/SchoolList'
 import { SimulationResults } from '@/components/prediction/SimulationResults'
 import { SankeyDiagram } from '@/components/prediction/SankeyDiagram'
-import type { PerSchoolOutcome, ModalOutcome, SchoolProbability } from '@/lib/scoring/types'
+import type { PerSchoolOutcome, ModalOutcome } from '@/lib/model'
 
 interface ResultsDisplayProps {
   score: {

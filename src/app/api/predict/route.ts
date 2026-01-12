@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { getUser } from '@/lib/auth'
 import { createClient } from '@/lib/supabase/server'
-import { generatePrediction, type ApplicantInput } from '@/lib/scoring'
+import { generatePrediction, type LegacyApplicantInput as ApplicantInput } from '@/lib/model'
 import { RACE_ETHNICITY_CATEGORIES } from '@/types/data'
 
 // Validation schema for applicant input

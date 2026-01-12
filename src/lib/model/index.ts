@@ -144,5 +144,25 @@ export type {
   ValidationReport,
 } from './validation';
 
-// Future exports (to be implemented in subsequent phases):
-// Phase 10: Migration utilities
+// Phase 10: Migration utilities (API compatibility layer)
+export {
+  generatePrediction,
+  generateQuickPrediction,
+  generateLegacySchoolList,
+  runLegacySimulation,
+  calculateLegacyScore,
+  convertToApplicantProfile,
+  convertToSchoolData,
+} from './migration';
+
+// Re-export types from migration
+export type {
+  LegacyApplicantInput,
+  LegacyScoreBreakdown,
+  LegacySchoolProbability,
+  LegacySchoolList,
+  LegacySimulationResult,
+  LegacyPredictionResult,
+  PerSchoolOutcome,
+  ModalOutcome,
+} from './migration';

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
-import { generateQuickPrediction, type ApplicantInput } from '@/lib/scoring'
+import { generateQuickPrediction, type LegacyApplicantInput as ApplicantInput } from '@/lib/model'
 import { RACE_ETHNICITY_CATEGORIES } from '@/types/data'
 
 // Simplified validation schema for quick prediction

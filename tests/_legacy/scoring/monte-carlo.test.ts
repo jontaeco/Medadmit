@@ -5,8 +5,8 @@ import {
   calculateTheoreticalProbability,
   calculateExpectedAcceptances,
   getHistogramData,
-} from '@/lib/scoring/monte-carlo'
-import type { SchoolProbability } from '@/lib/scoring/types'
+} from '@/lib/_legacy/scoring/monte-carlo'
+import type { SchoolProbability } from '@/lib/_legacy/scoring/types'
 
 // Helper to create mock school probabilities
 function createMockSchoolList(
