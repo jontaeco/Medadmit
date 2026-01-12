@@ -3,13 +3,20 @@ import { z } from 'zod'
 import { getUser } from '@/lib/auth'
 import { createClient } from '@/lib/supabase/server'
 import {
-  generatePrediction,
   generateNativePrediction,
-  type LegacyApplicantInput as ApplicantInput,
   type NativePredictionRequest,
-  type PredictionFormat,
 } from '@/lib/model'
 import { RACE_ETHNICITY_CATEGORIES } from '@/types/data'
+
+/**
+ * Prediction API (v2.0)
+ *
+ * Uses the rigorous probabilistic model with:
+ * - Competitiveness Score (C) on -3 to +3 scale, calibrated to AAMC A-23
+ * - Two-stage probability: P(accept) = P(interview) × P(accept|interview)
+ * - 80% credible intervals via parametric bootstrap
+ * - Correlated Monte Carlo simulation
+ */
 
 // Validation schema for applicant input
 const ApplicantInputSchema = z.object({
@@ -32,9 +39,7 @@ const ApplicantInputSchema = z.object({
   // Experiences
   clinicalHoursTotal: z.number().min(0).default(0),
   clinicalHoursPaid: z.number().min(0).default(0),
-  clinicalHoursVolunteer: z.number().min(0).default(0),
   researchHoursTotal: z.number().min(0).default(0),
-  hasResearchPublications: z.boolean().default(false),
   publicationCount: z.number().min(0).default(0),
   volunteerHoursNonClinical: z.number().min(0).default(0),
   shadowingHours: z.number().min(0).default(0),
@@ -46,37 +51,18 @@ const ApplicantInputSchema = z.object({
   isReapplicant: z.boolean().default(false),
   hasInstitutionalAction: z.boolean().default(false),
   hasCriminalHistory: z.boolean().default(false),
-
-  // WARS-specific fields (optional)
-  undergraduateSchoolTier: z.union([z.literal(1), z.literal(2), z.literal(3)]).optional(),
-  gpaTrend: z.enum(['upward', 'flat', 'downward']).optional(),
-  miscellaneousLevel: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)]).optional(),
 })
 
-const SchoolListOptionsSchema = z.object({
-  totalSchools: z.number().min(1).max(50).optional(),
-  reachCount: z.number().min(0).max(20).optional(),
-  targetCount: z.number().min(0).max(30).optional(),
-  safetyCount: z.number().min(0).max(15).optional(),
-  excludeStates: z.array(z.string()).optional(),
-  includeStates: z.array(z.string()).optional(),
-  onlyPublic: z.boolean().optional(),
-  onlyPrivate: z.boolean().optional(),
-  onlyOOSFriendly: z.boolean().optional(),
-  missionKeywords: z.array(z.string()).optional(),
-  prioritizeInState: z.boolean().optional(),
-  prioritizeResearch: z.boolean().optional(),
-  prioritizePrimaryCare: z.boolean().optional(),
-  minimumProbability: z.number().min(0).max(1).optional(),
-  maxTuition: z.number().min(0).optional(),
-  preferLowerTuition: z.boolean().optional(),
+const PredictionOptionsSchema = z.object({
+  includeSimulation: z.boolean().default(true),
+  simulationIterations: z.number().min(1000).max(50000).default(5000),
+  schoolIds: z.array(z.string()).optional(),
 }).optional()
 
 const RequestSchema = z.object({
   applicant: ApplicantInputSchema,
-  options: SchoolListOptionsSchema,
+  options: PredictionOptionsSchema,
   profileId: z.string().optional(),
-  format: z.enum(['native', 'legacy']).optional().default('legacy'),
 })
 
 export async function POST(request: NextRequest) {
@@ -101,188 +87,76 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { applicant, options, profileId, format } = validationResult.data
+    const { applicant, options, profileId } = validationResult.data
 
-    // Handle native format
-    if (format === 'native') {
-      const nativeRequest: NativePredictionRequest = {
-        gpa: applicant.cumulativeGPA,
-        scienceGpa: applicant.scienceGPA,
-        mcat: applicant.mcatTotal,
-        mcatSections: {
-          cpbs: applicant.mcatCPBS,
-          cars: applicant.mcatCARS,
-          bbfl: applicant.mcatBBFL,
-          psbb: applicant.mcatPSBB,
-        },
-        state: applicant.stateOfResidence,
-        raceEthnicity: applicant.raceEthnicity ?? null,
-        isFirstGen: applicant.isFirstGeneration,
-        isDisadvantaged: applicant.isDisadvantaged,
-        isRural: applicant.isRuralBackground,
-        clinicalHours: applicant.clinicalHoursTotal,
-        clinicalHoursPaid: applicant.clinicalHoursPaid,
-        researchHours: applicant.researchHoursTotal,
-        volunteerHours: applicant.volunteerHoursNonClinical,
-        shadowingHours: applicant.shadowingHours,
-        leadershipCount: applicant.leadershipExperiences,
-        publicationCount: applicant.publicationCount,
-        teachingHours: applicant.teachingHours,
-        applicationYear: applicant.applicationYear,
-        isReapplicant: applicant.isReapplicant,
-        hasInstitutionalAction: applicant.hasInstitutionalAction,
-        hasCriminalHistory: applicant.hasCriminalHistory,
-      };
-
-      const nativePrediction = generateNativePrediction(nativeRequest, {
-        includeSimulation: true,
-        simulationIterations: 5000,
-      });
-
-      // Save to database (simplified for native format)
-      const supabase = await createClient()
-      const predictionData = {
-        profile_id: profileId || null,
-        user_id: user.id,
-        model_version: nativePrediction.metadata.modelVersion,
-        data_sources_version: '2.0.0',
-        input_snapshot: nativeRequest,
-        applicant_score: Math.round(500 + nativePrediction.competitiveness.C * 100), // Approximate legacy score
-        score_breakdown: {
-          competitiveness: nativePrediction.competitiveness,
-          experience: nativePrediction.experience,
-          demographics: nativePrediction.demographics,
-        },
-        global_acceptance_probability: nativePrediction.listMetrics.pAtLeastOne.mean,
-        global_acceptance_ci_lower: nativePrediction.listMetrics.pAtLeastOne.ci80[0],
-        global_acceptance_ci_upper: nativePrediction.listMetrics.pAtLeastOne.ci80[1],
-        school_results: {
-          total: nativePrediction.schools.length,
-          schools: nativePrediction.schools,
-        },
-        simulation_results: nativePrediction.simulation,
-        computed_at: nativePrediction.metadata.computedAt,
-        compute_time_ms: 100,
-      }
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { data: savedPrediction, error: saveError } = await (supabase as any)
-        .from('prediction_results')
-        .insert(predictionData)
-        .select()
-        .single()
-
-      if (saveError) {
-        console.error('Failed to save native prediction:', saveError)
-        throw new Error('Failed to save prediction')
-      }
-
-      return NextResponse.json({
-        success: true,
-        format: 'native',
-        predictionId: savedPrediction.id,
-        prediction: nativePrediction,
-      })
-    }
-
-    /**
-     * @deprecated Legacy format handling
-     * The legacy format (0-1000 score, WARS, simple probabilities) is deprecated.
-     * Use format: 'native' for the v2.0 model with:
-     * - Competitiveness Score (C) on -3 to +3 scale
-     * - Two-stage probability model (P(interview) × P(accept|interview))
-     * - 80% credible intervals
-     * - Correlated Monte Carlo simulation
-     */
-    console.warn('[Predict API] Legacy format is deprecated. Use format: "native" for v2.0 model.')
-
-    // Convert to ApplicantInput type with defaults
-    const applicantInput: ApplicantInput = {
-      cumulativeGPA: applicant.cumulativeGPA,
-      scienceGPA: applicant.scienceGPA ?? null,
-      mcatTotal: applicant.mcatTotal,
-      mcatCPBS: applicant.mcatCPBS ?? null,
-      mcatCARS: applicant.mcatCARS ?? null,
-      mcatBBFL: applicant.mcatBBFL ?? null,
-      mcatPSBB: applicant.mcatPSBB ?? null,
-      stateOfResidence: applicant.stateOfResidence as any,
-      raceEthnicity: (applicant.raceEthnicity as any) ?? null,
-      isFirstGeneration: applicant.isFirstGeneration,
+    // Build native prediction request
+    const nativeRequest: NativePredictionRequest = {
+      gpa: applicant.cumulativeGPA,
+      scienceGpa: applicant.scienceGPA,
+      mcat: applicant.mcatTotal,
+      mcatSections: {
+        cpbs: applicant.mcatCPBS,
+        cars: applicant.mcatCARS,
+        bbfl: applicant.mcatBBFL,
+        psbb: applicant.mcatPSBB,
+      },
+      state: applicant.stateOfResidence,
+      raceEthnicity: applicant.raceEthnicity ?? null,
+      isFirstGen: applicant.isFirstGeneration,
       isDisadvantaged: applicant.isDisadvantaged,
-      isRuralBackground: applicant.isRuralBackground,
-      clinicalHoursTotal: applicant.clinicalHoursTotal,
+      isRural: applicant.isRuralBackground,
+      clinicalHours: applicant.clinicalHoursTotal,
       clinicalHoursPaid: applicant.clinicalHoursPaid,
-      clinicalHoursVolunteer: applicant.clinicalHoursVolunteer,
-      researchHoursTotal: applicant.researchHoursTotal,
-      hasResearchPublications: applicant.hasResearchPublications,
-      publicationCount: applicant.publicationCount,
-      volunteerHoursNonClinical: applicant.volunteerHoursNonClinical,
+      researchHours: applicant.researchHoursTotal,
+      volunteerHours: applicant.volunteerHoursNonClinical,
       shadowingHours: applicant.shadowingHours,
-      leadershipExperiences: applicant.leadershipExperiences,
+      leadershipCount: applicant.leadershipExperiences,
+      publicationCount: applicant.publicationCount,
       teachingHours: applicant.teachingHours,
       applicationYear: applicant.applicationYear,
       isReapplicant: applicant.isReapplicant,
       hasInstitutionalAction: applicant.hasInstitutionalAction,
       hasCriminalHistory: applicant.hasCriminalHistory,
-      // WARS-specific fields (optional)
-      undergraduateSchoolTier: applicant.undergraduateSchoolTier,
-      gpaTrend: applicant.gpaTrend,
-      miscellaneousLevel: applicant.miscellaneousLevel,
     }
 
-    // Generate prediction
-    const prediction = generatePrediction(applicantInput, options as any)
+    // Generate prediction using v2.0 model
+    const prediction = generateNativePrediction(nativeRequest, {
+      includeSimulation: options?.includeSimulation ?? true,
+      simulationIterations: options?.simulationIterations ?? 5000,
+      schoolIds: options?.schoolIds,
+    })
 
-    // Transform simulation distributions to array format for charts
-    // Convert raw counts to distribution array
-    console.log('[Predict API] Raw interview counts length:', prediction.simulation.rawInterviewCounts?.length || 0)
-    console.log('[Predict API] Raw acceptance counts length:', prediction.simulation.rawAcceptanceCounts?.length || 0)
-    const interviewDistArray = countToDistribution(prediction.simulation.rawInterviewCounts || [])
-    const acceptanceDistArray = countToDistribution(prediction.simulation.rawAcceptanceCounts || [])
-    console.log('[Predict API] Interview distribution array length:', interviewDistArray.length)
-    console.log('[Predict API] Acceptance distribution array length:', acceptanceDistArray.length)
-
-    // Save prediction to database
+    // Save to database
     const supabase = await createClient()
-    console.log('[Predict API] Saving applicant_score:', typeof prediction.applicantScore.totalScore, prediction.applicantScore.totalScore)
     const predictionData = {
       profile_id: profileId || null,
       user_id: user.id,
-      model_version: prediction.modelVersion,
-      data_sources_version: prediction.dataVersion,
-      input_snapshot: applicantInput,
-      applicant_score: prediction.applicantScore.totalScore,
-      score_breakdown: prediction.applicantScore,
-      global_acceptance_probability: prediction.globalAcceptanceProbability,
-      global_acceptance_ci_lower: prediction.globalProbabilityRange.lower,
-      global_acceptance_ci_upper: prediction.globalProbabilityRange.upper,
+      model_version: prediction.metadata.modelVersion,
+      data_sources_version: '2.0.0',
+      input_snapshot: nativeRequest,
+      // Store C score mapped to 0-1000 range for database compatibility
+      applicant_score: Math.round(500 + prediction.competitiveness.C * 100),
+      score_breakdown: {
+        competitiveness: prediction.competitiveness,
+        experience: prediction.experience,
+        demographics: prediction.demographics,
+      },
+      global_acceptance_probability: prediction.listMetrics.pAtLeastOne.mean,
+      global_acceptance_ci_lower: prediction.listMetrics.pAtLeastOne.ci80[0],
+      global_acceptance_ci_upper: prediction.listMetrics.pAtLeastOne.ci80[1],
       school_results: {
-        total: prediction.schoolList.reach.length + prediction.schoolList.target.length + prediction.schoolList.safety.length,
-        reach: prediction.schoolList.reach.map(formatSchoolProbability),
-        target: prediction.schoolList.target.map(formatSchoolProbability),
-        safety: prediction.schoolList.safety.map(formatSchoolProbability),
-        summary: prediction.schoolList.summary,
+        total: prediction.schools.length,
+        schools: prediction.schools,
       },
       simulation_results: {
-        expectedInterviews: prediction.simulation.expectedInterviews,
-        expectedAcceptances: prediction.simulation.expectedAcceptances,
-        probabilityOfAtLeastOneAcceptance: prediction.simulation.probabilityOfAtLeastOneAcceptance,
-        interviewDistribution: interviewDistArray,
-        acceptanceDistribution: acceptanceDistArray,
-        probabilityBuckets: {
-          noAcceptances: (prediction.simulation.probabilityBuckets as any).zeroAcceptances,
-          oneAcceptance: prediction.simulation.probabilityBuckets.oneAcceptance,
-          twoToThree: (prediction.simulation.probabilityBuckets as any).twoToThreeAcceptances,
-          fourOrMore: (prediction.simulation.probabilityBuckets as any).fourPlusAcceptances,
-        },
-        // Sankey diagram data
-        perSchoolOutcomes: prediction.simulation.perSchoolOutcomes,
-        modalOutcome: prediction.simulation.modalOutcome,
-        optimisticOutcome: prediction.simulation.optimisticOutcome,
-        pessimisticOutcome: prediction.simulation.pessimisticOutcome,
+        ...prediction.simulation,
+        expectedInterviews: prediction.listMetrics.expectedInterviews,
+        expectedAcceptances: prediction.listMetrics.expectedAcceptances,
+        distributionBuckets: prediction.listMetrics.distributionBuckets,
+        uncertainty: prediction.uncertainty,
       },
-      computed_at: prediction.computedAt,
-      compute_time_ms: 100, // Mock compute time
+      computed_at: prediction.metadata.computedAt,
+      compute_time_ms: 100,
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -297,46 +171,10 @@ export async function POST(request: NextRequest) {
       throw new Error('Failed to save prediction')
     }
 
-    // Return prediction result with ID
     return NextResponse.json({
       success: true,
       predictionId: savedPrediction.id,
-      prediction: {
-        applicantScore: prediction.applicantScore.totalScore,
-        scoreBreakdown: prediction.applicantScore,
-        globalAcceptanceProbability: prediction.globalAcceptanceProbability,
-        globalProbabilityRange: prediction.globalProbabilityRange,
-        schoolList: {
-          reach: prediction.schoolList.reach.map(formatSchoolProbability),
-          target: prediction.schoolList.target.map(formatSchoolProbability),
-          safety: prediction.schoolList.safety.map(formatSchoolProbability),
-          summary: prediction.schoolList.summary,
-        },
-        simulation: {
-          expectedInterviews: prediction.simulation.expectedInterviews,
-          expectedAcceptances: prediction.simulation.expectedAcceptances,
-          probabilityOfAtLeastOneAcceptance: prediction.simulation.probabilityOfAtLeastOneAcceptance,
-          interviewDistribution: interviewDistArray,
-          acceptanceDistribution: acceptanceDistArray,
-          probabilityBuckets: {
-            noAcceptances: (prediction.simulation.probabilityBuckets as any).zeroAcceptances,
-            oneAcceptance: prediction.simulation.probabilityBuckets.oneAcceptance,
-            twoToThree: (prediction.simulation.probabilityBuckets as any).twoToThreeAcceptances,
-            fourOrMore: (prediction.simulation.probabilityBuckets as any).fourPlusAcceptances,
-          },
-          perSchoolOutcomes: prediction.simulation.perSchoolOutcomes,
-          modalOutcome: prediction.simulation.modalOutcome,
-          optimisticOutcome: prediction.simulation.optimisticOutcome,
-          pessimisticOutcome: prediction.simulation.pessimisticOutcome,
-        },
-        warnings: prediction.warnings,
-        caveats: prediction.caveats,
-        metadata: {
-          computedAt: prediction.computedAt,
-          modelVersion: prediction.modelVersion,
-          dataVersion: prediction.dataVersion,
-        },
-      },
+      prediction,
     })
   } catch (error) {
     console.error('Prediction error:', error)
@@ -344,55 +182,5 @@ export async function POST(request: NextRequest) {
       { error: 'Failed to generate prediction' },
       { status: 500 }
     )
-  }
-}
-
-// Helper to convert raw count array to distribution array
-function countToDistribution(counts: number[]): { count: number; probability: number }[] {
-  const frequencyMap = new Map<number, number>()
-
-  // Count occurrences of each value
-  for (const count of counts) {
-    frequencyMap.set(count, (frequencyMap.get(count) || 0) + 1)
-  }
-
-  // Convert to probability distribution
-  const total = counts.length
-  const distribution: { count: number; probability: number }[] = []
-
-  frequencyMap.forEach((frequency, count) => {
-    distribution.push({
-      count,
-      probability: frequency / total,
-    })
-  })
-
-  // Sort by count
-  return distribution.sort((a, b) => a.count - b.count)
-}
-
-// Helper to format school probability for API response
-function formatSchoolProbability(sp: any) {
-  return {
-    school: {
-      id: sp.school.id,
-      name: sp.school.name,
-      shortName: sp.school.shortName,
-      state: sp.school.state,
-      city: sp.school.city,
-      medianGPA: sp.school.medianGPA,
-      medianMCAT: sp.school.medianMCAT,
-      isPublic: sp.school.isPublic,
-      oosFriendliness: sp.school.oosFriendliness,
-      tuitionInState: sp.school.tuitionInState,
-      tuitionOutOfState: sp.school.tuitionOutOfState,
-      warsTier: sp.school.warsTier,
-      isLowYield: sp.school.isLowYield,
-    },
-    probability: sp.probability,
-    probabilityLower: sp.probabilityLower,
-    probabilityUpper: sp.probabilityUpper,
-    category: sp.category,
-    fit: sp.fit,
   }
 }

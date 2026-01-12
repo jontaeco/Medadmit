@@ -1,14 +1,12 @@
 'use client'
 
 /**
- * @deprecated This component uses legacy WARS tier system and simple probabilities.
- * For the v2.0 model, use NativeResultsDisplay with TwoStageProbability which shows:
- * - Two-stage probabilities: P(interview) × P(accept|interview)
- * - 80% credible intervals for all probabilities
- * - Four-tier categories: reach, target, likely, safety
- * - Factor breakdown per school
+ * School List Component (v2.0)
  *
- * This component is maintained for backward compatibility with legacy format.
+ * Displays school predictions with two-stage probability model:
+ * - P(interview) × P(accept|interview) = P(accept)
+ * - 80% credible intervals
+ * - Category tiers: reach, target, likely, safety
  */
 
 import { useState } from 'react'

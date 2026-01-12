@@ -29,13 +29,58 @@ export default async function ResultPage({ params }: ResultPageProps) {
     notFound()
   }
 
-  // Parse JSON fields
+  // Parse JSON fields - all predictions are now v2.0 format
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const scoreBreakdown = prediction.score_breakdown as any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const schoolResults = prediction.school_results as any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const simulationResults = prediction.simulation_results as any
 
-  // Detect if this is native v2.0 format by checking for competitiveness data
-  const isNativeFormat = scoreBreakdown?.competitiveness !== undefined
+  // Build NativePredictionResponse from stored data
+  const nativePrediction: NativePredictionResponse = {
+    competitiveness: scoreBreakdown.competitiveness,
+    experience: scoreBreakdown.experience,
+    demographics: scoreBreakdown.demographics,
+    schools: schoolResults?.schools || [],
+    listMetrics: {
+      expectedInterviews: simulationResults?.expectedInterviews ?? { mean: 0, ci80: [0, 0] },
+      expectedAcceptances: simulationResults?.expectedAcceptances ?? { mean: 0, ci80: [0, 0] },
+      pAtLeastOne: {
+        mean: prediction.global_acceptance_probability ?? 0,
+        ci80: [
+          prediction.global_acceptance_ci_lower ?? 0,
+          prediction.global_acceptance_ci_upper ?? 0,
+        ],
+      },
+      distributionBuckets: simulationResults?.distributionBuckets ?? {
+        zero: 0,
+        one: 0,
+        twoThree: 0,
+        fourPlus: 0,
+      },
+    },
+    uncertainty: simulationResults?.uncertainty ?? {
+      overallLevel: 'moderate' as const,
+      decomposition: {
+        parameterVariance: 0,
+        randomEffectVariance: 0,
+        totalVariance: 0,
+      },
+    },
+    simulation: {
+      iterations: simulationResults?.iterations ?? 5000,
+      correlationDiagnostics: simulationResults?.correlationDiagnostics ?? {
+        meanPairwiseCorrelation: 0,
+        acceptanceVariance: 0,
+      },
+      perSchool: simulationResults?.perSchool ?? [],
+    },
+    metadata: {
+      modelVersion: prediction.model_version ?? '2.0.0',
+      computedAt: prediction.computed_at,
+    },
+  }
 
   return (
     <div className="space-y-6">
@@ -73,138 +118,8 @@ export default async function ResultPage({ params }: ResultPageProps) {
         </CardContent>
       </Card>
 
-      {/* Results Display Client Component */}
-      {isNativeFormat ? (
-        // Native v2.0 format
-        <ResultsDisplay
-          format="native"
-          prediction={{
-            competitiveness: scoreBreakdown.competitiveness,
-            experience: scoreBreakdown.experience,
-            demographics: scoreBreakdown.demographics,
-            schools: schoolResults?.schools || [],
-            listMetrics: {
-              expectedInterviews: {
-                mean: simulationResults?.expectedInterviews?.mean ?? simulationResults?.expectedInterviews ?? 0,
-                ci80: simulationResults?.expectedInterviews?.ci80 ?? [0, 0],
-              },
-              expectedAcceptances: {
-                mean: simulationResults?.expectedAcceptances?.mean ?? simulationResults?.expectedAcceptances ?? 0,
-                ci80: simulationResults?.expectedAcceptances?.ci80 ?? [0, 0],
-              },
-              pAtLeastOne: {
-                mean: prediction.global_acceptance_probability ?? 0,
-                ci80: [
-                  prediction.global_acceptance_ci_lower ?? 0,
-                  prediction.global_acceptance_ci_upper ?? 0,
-                ],
-              },
-              distributionBuckets: simulationResults?.distributionBuckets ?? {
-                zero: 0,
-                one: 0,
-                twoThree: 0,
-                fourPlus: 0,
-              },
-            },
-            uncertainty: simulationResults?.uncertainty ?? {
-              overallLevel: 'moderate' as const,
-              decomposition: {
-                parameterVariance: 0,
-                randomEffectVariance: 0,
-                totalVariance: 0,
-              },
-            },
-            simulation: {
-              iterations: simulationResults?.iterations ?? 5000,
-              correlationDiagnostics: simulationResults?.correlationDiagnostics ?? {
-                meanPairwiseCorrelation: 0,
-                acceptanceVariance: 0,
-              },
-              perSchool: simulationResults?.perSchool ?? [],
-            },
-            metadata: {
-              modelVersion: prediction.model_version ?? '2.0.0',
-              computedAt: prediction.computed_at,
-            },
-          } as NativePredictionResponse}
-        />
-      ) : (
-        // Legacy format
-        <ResultsDisplay
-          score={{
-            academicScore: scoreBreakdown?.academicScore || 0,
-            academicDetails: {
-              gpaContribution: scoreBreakdown?.academicDetails?.gpaContribution || 0,
-              mcatContribution: scoreBreakdown?.academicDetails?.mcatContribution || 0,
-              gpaPercentile: scoreBreakdown?.academicDetails?.gpaPercentile || 0,
-              mcatPercentile: scoreBreakdown?.academicDetails?.mcatPercentile || 0,
-            },
-            experienceScore: scoreBreakdown?.experienceScore || 0,
-            experienceDetails: {
-              clinicalContribution: scoreBreakdown?.experienceDetails?.clinicalContribution || 0,
-              researchContribution: scoreBreakdown?.experienceDetails?.researchContribution || 0,
-              volunteerContribution: scoreBreakdown?.experienceDetails?.volunteerContribution || 0,
-              leadershipContribution: scoreBreakdown?.experienceDetails?.leadershipContribution || 0,
-              shadowingContribution: scoreBreakdown?.experienceDetails?.shadowingContribution || 0,
-              teachingContribution: scoreBreakdown?.experienceDetails?.teachingContribution || 0,
-            },
-            demographicAdjustment: scoreBreakdown?.demographicAdjustment || 0,
-            redFlagPenalty: scoreBreakdown?.redFlagPenalty || 0,
-            totalScore: scoreBreakdown?.totalScore || prediction.applicant_score || 0,
-            percentile: scoreBreakdown?.percentile || 0,
-            tier: scoreBreakdown?.tier || 'competitive',
-            warsScore: scoreBreakdown?.warsScore,
-            warsLevel: scoreBreakdown?.warsLevel,
-            warsBreakdown: scoreBreakdown?.warsBreakdown,
-          }}
-          schoolList={{
-            reach: schoolResults?.reach || [],
-            target: schoolResults?.target || [],
-            safety: schoolResults?.safety || [],
-            summary: {
-              totalSchools: schoolResults?.summary?.totalSchools || 0,
-              expectedInterviews: simulationResults?.expectedInterviews || 0,
-              expectedAcceptances: simulationResults?.expectedAcceptances || 0,
-              probabilityOfAtLeastOne: simulationResults?.probabilityOfAtLeastOneAcceptance || 0,
-            },
-          }}
-          simulation={{
-            expectedInterviews: simulationResults?.expectedInterviews || 0,
-            expectedAcceptances: simulationResults?.expectedAcceptances || 0,
-            probabilityOfAtLeastOneAcceptance: simulationResults?.probabilityOfAtLeastOneAcceptance || 0,
-            interviewDistribution: simulationResults?.interviewDistribution || [],
-            acceptanceDistribution: simulationResults?.acceptanceDistribution || [],
-            probabilityBuckets: simulationResults?.probabilityBuckets || {
-              noAcceptances: 0,
-              oneAcceptance: 0,
-              twoToThree: 0,
-              fourOrMore: 0,
-            },
-            perSchoolOutcomes: simulationResults?.perSchoolOutcomes,
-            modalOutcome: simulationResults?.modalOutcome,
-            optimisticOutcome: simulationResults?.optimisticOutcome,
-            pessimisticOutcome: simulationResults?.pessimisticOutcome,
-          }}
-          globalProbability={prediction.global_acceptance_probability || 0}
-          confidenceRange={{
-            lower: prediction.global_acceptance_ci_lower || 0,
-            upper: prediction.global_acceptance_ci_upper || 0,
-          }}
-          applicantProfile={prediction.input_snapshot ? {
-            gpa: (prediction.input_snapshot as any).cumulativeGPA || 0,
-            mcat: (prediction.input_snapshot as any).mcatTotal || 0,
-            clinicalHours: (prediction.input_snapshot as any).clinicalHoursTotal || 0,
-            researchHours: (prediction.input_snapshot as any).researchHoursTotal || 0,
-            volunteerHours: (prediction.input_snapshot as any).volunteerHoursNonClinical || 0,
-            shadowingHours: (prediction.input_snapshot as any).shadowingHours || 0,
-            teachingHours: (prediction.input_snapshot as any).teachingHours || 0,
-            raceEthnicity: (prediction.input_snapshot as any).raceEthnicity,
-            state: (prediction.input_snapshot as any).stateOfResidence || '',
-            isFirstGen: (prediction.input_snapshot as any).isFirstGeneration || false,
-            isDisadvantaged: (prediction.input_snapshot as any).isDisadvantaged || false,
-          } : undefined}
-        />
-      )}
+      {/* Results Display */}
+      <ResultsDisplay prediction={nativePrediction} />
 
       {/* Caveats & Methodology */}
       <Card>

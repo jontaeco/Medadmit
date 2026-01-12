@@ -1,40 +1,53 @@
 /**
- * MedAdmit v2 Model
+ * MedAdmit v2.0 Prediction Model
  *
- * This module exports types and functions for the
- * rigorous probabilistic admissions model.
+ * A rigorous probabilistic model for medical school admissions predictions.
+ *
+ * Key features:
+ * - Competitiveness Score (C) on -3 to +3 scale, calibrated to AAMC A-23 data
+ * - Two-stage probability: P(accept) = P(interview) × P(accept|interview)
+ * - Experience saturation with diminishing returns
+ * - Demographic effects from AAMC A-18 data
+ * - 80% credible intervals via parametric bootstrap
+ * - Correlated Monte Carlo simulation with random effects
  */
 
 // Export all types
 export * from './types';
 
-// Phase 4: Experience saturation functions
-export {
-  saturatingContribution,
-  contributionWithThreshold,
-  publicationContribution,
-  calculateExperienceContribution,
-  getExperienceBreakdown,
-  checkMinimumThresholds,
-  DEFAULT_EXPERIENCE_PARAMS,
-} from './experience';
+// =============================================================================
+// PREDICTION API
+// Main entry points for generating predictions
+// =============================================================================
 
-// Phase 5: Demographic and mission effects
 export {
-  calculateRaceEthnicityEffect,
-  calculateSESEffect,
-  calculateMissionInteraction,
-  calculateDemographicEffect,
-  getDemographicBreakdown,
-  isURM,
-  logitToOddsRatio,
-  oddsRatioToLogit,
-  getAvailableRaceCategories,
-  getDemographicUncertainty,
-  DEFAULT_DEMOGRAPHIC_PARAMS,
-} from './demographics';
+  generateNativePrediction,
+  generateQuickNativePrediction,
+  convertRequestToProfile,
+} from './native-prediction';
 
-// Phase 6: Competitiveness calculation
+// Re-export types from API
+export type {
+  NativePredictionResponse,
+  NativePredictionRequest,
+  CompetitivenessResponse,
+  ExperienceResponse,
+  DemographicResponse,
+  SchoolPredictionResponse,
+  ListMetricsResponse,
+  UncertaintyResponse,
+  SimulationResponse,
+  PredictionOptions,
+  PredictionFormat,
+  CredibleInterval,
+  UncertaintyLevel,
+} from './api-types';
+
+// =============================================================================
+// COMPETITIVENESS
+// Core competitiveness calculation using I-splines calibrated to A-23
+// =============================================================================
+
 export {
   calculateCompetitiveness,
   calculateCompetitivenessFromProfile,
@@ -48,7 +61,11 @@ export {
   DEFAULT_SPLINES,
 } from './competitiveness';
 
-// Phase 6: Two-stage probability model
+// =============================================================================
+// TWO-STAGE PROBABILITY MODEL
+// School-specific P(interview) and P(accept|interview)
+// =============================================================================
+
 export {
   calculateSchoolProbability,
   calculateListProbability,
@@ -65,7 +82,45 @@ export {
   analyzePredictionDifference,
 } from './two-stage';
 
-// Phase 7: Monte Carlo simulation with correlated random effects
+// =============================================================================
+// EXPERIENCE SATURATION
+// Diminishing returns: g(h) = α(1 - e^(-h/τ))
+// =============================================================================
+
+export {
+  saturatingContribution,
+  contributionWithThreshold,
+  publicationContribution,
+  calculateExperienceContribution,
+  getExperienceBreakdown,
+  checkMinimumThresholds,
+  DEFAULT_EXPERIENCE_PARAMS,
+} from './experience';
+
+// =============================================================================
+// DEMOGRAPHIC EFFECTS
+// URM from A-18, SES factors, mission interactions
+// =============================================================================
+
+export {
+  calculateRaceEthnicityEffect,
+  calculateSESEffect,
+  calculateMissionInteraction,
+  calculateDemographicEffect,
+  getDemographicBreakdown,
+  isURM,
+  logitToOddsRatio,
+  oddsRatioToLogit,
+  getAvailableRaceCategories,
+  getDemographicUncertainty,
+  DEFAULT_DEMOGRAPHIC_PARAMS,
+} from './demographics';
+
+// =============================================================================
+// MONTE CARLO SIMULATION
+// Correlated random effects creating realistic "all-or-nothing" cycles
+// =============================================================================
+
 export {
   runCorrelatedSimulation,
   runSimulationFromPredictions,
@@ -81,7 +136,6 @@ export {
   DEFAULT_RANDOM_EFFECTS,
 } from './monte-carlo';
 
-// Re-export types from monte-carlo
 export type {
   SimulationConfig,
   SimulationResult,
@@ -91,7 +145,11 @@ export type {
   SchoolSimulationStats,
 } from './monte-carlo';
 
-// Phase 8: Uncertainty quantification
+// =============================================================================
+// UNCERTAINTY QUANTIFICATION
+// Parametric bootstrap for 80% credible intervals
+// =============================================================================
+
 export {
   sampleSchoolParams,
   sampleCompetitiveness,
@@ -111,7 +169,6 @@ export {
   DEFAULT_UNCERTAINTY_CONFIG,
 } from './uncertainty';
 
-// Re-export types from uncertainty
 export type {
   ParameterUncertainty,
   SchoolParameterUncertainty,
@@ -122,7 +179,11 @@ export type {
   ListPredictionWithUncertainty,
 } from './uncertainty';
 
-// Phase 9: Validation framework
+// =============================================================================
+// VALIDATION FRAMEWORK
+// A-23 reproduction, sensitivity analysis, edge case testing
+// =============================================================================
+
 export {
   validateAgainstA23,
   validateSchoolRates,
@@ -133,7 +194,6 @@ export {
   calculateModelImpliedPAtLeastOne,
 } from './validation';
 
-// Re-export types from validation
 export type {
   A23ValidationResult,
   SchoolRateValidation,
@@ -143,64 +203,3 @@ export type {
   EdgeCaseResult,
   ValidationReport,
 } from './validation';
-
-// =============================================================================
-// LEGACY MIGRATION UTILITIES - @deprecated
-// These functions provide backward compatibility with the v1.0 API format.
-// For new code, use generateNativePrediction() instead.
-// =============================================================================
-
-/** @deprecated Use generateNativePrediction() instead */
-export {
-  generatePrediction,
-  generateQuickPrediction,
-  generateLegacySchoolList,
-  runLegacySimulation,
-  calculateLegacyScore,
-  convertToApplicantProfile,
-  convertToSchoolData,
-} from './migration';
-
-/** @deprecated Legacy types for v1.0 API format */
-export type {
-  LegacyApplicantInput,
-  LegacyScoreBreakdown,
-  LegacySchoolProbability,
-  LegacySchoolList,
-  LegacySimulationResult,
-  LegacyPredictionResult,
-  PerSchoolOutcome,
-  ModalOutcome,
-} from './migration';
-
-// =============================================================================
-// NATIVE v2.0 API - Preferred
-// Use these functions for new code. They provide:
-// - Competitiveness Score (C) on -3 to +3 scale
-// - Two-stage probability model (P(interview) × P(accept|interview))
-// - 80% credible intervals via parametric bootstrap
-// - Correlated Monte Carlo simulation
-// =============================================================================
-
-export {
-  generateNativePrediction,
-  generateQuickNativePrediction,
-  convertRequestToProfile,
-} from './native-prediction';
-
-// Re-export types from native prediction
-export type {
-  NativePredictionResponse,
-  NativePredictionRequest,
-  CompetitivenessResponse,
-  ExperienceResponse,
-  DemographicResponse,
-  SchoolPredictionResponse,
-  ListMetricsResponse,
-  UncertaintyResponse,
-  SimulationResponse,
-  PredictionOptions,
-  PredictionFormat,
-  CredibleInterval,
-  UncertaintyLevel,
-} from './api-types';
