@@ -122,6 +122,27 @@ export type {
   ListPredictionWithUncertainty,
 } from './uncertainty';
 
-// Future exports (to be implemented in subsequent phases):
 // Phase 9: Validation framework
+export {
+  validateAgainstA23,
+  validateSchoolRates,
+  runSensitivityAnalysis,
+  runEdgeCaseTests,
+  generateValidationReport,
+  formatValidationReportMarkdown,
+  calculateModelImpliedPAtLeastOne,
+} from './validation';
+
+// Re-export types from validation
+export type {
+  A23ValidationResult,
+  SchoolRateValidation,
+  SchoolValidationResult,
+  SensitivityTestResult,
+  SensitivityAnalysisResult,
+  EdgeCaseResult,
+  ValidationReport,
+} from './validation';
+
+// Future exports (to be implemented in subsequent phases):
 // Phase 10: Migration utilities
