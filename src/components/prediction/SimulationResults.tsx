@@ -26,6 +26,18 @@ interface SimulationResultsProps {
       twoToThree: number
       fourOrMore: number
     }
+    // New v2.0 correlation diagnostics
+    correlationDiagnostics?: {
+      meanPairwiseCorrelation: number
+      acceptanceVariance: number
+      randomEffectSD?: number
+    }
+    iterations?: number
+    confidenceIntervals?: {
+      expectedInterviews: [number, number]
+      expectedAcceptances: [number, number]
+      pAtLeastOne: [number, number]
+    }
   }
 }
 
@@ -113,6 +125,11 @@ export function SimulationResults({ simulation }: SimulationResultsProps) {
             <p className="text-sm text-slate-500 mt-1">
               Probability of at least one acceptance
             </p>
+            {simulation.confidenceIntervals?.pAtLeastOne && (
+              <p className="text-xs text-slate-400 mt-0.5">
+                80% CI: {(simulation.confidenceIntervals.pAtLeastOne[0] * 100).toFixed(0)}% - {(simulation.confidenceIntervals.pAtLeastOne[1] * 100).toFixed(0)}%
+              </p>
+            )}
           </CardContent>
         </Card>
         <Card>
@@ -121,6 +138,11 @@ export function SimulationResults({ simulation }: SimulationResultsProps) {
               {simulation.expectedInterviews.toFixed(1)}
             </p>
             <p className="text-sm text-slate-500 mt-1">Expected interviews</p>
+            {simulation.confidenceIntervals?.expectedInterviews && (
+              <p className="text-xs text-slate-400 mt-0.5">
+                80% CI: {simulation.confidenceIntervals.expectedInterviews[0].toFixed(1)} - {simulation.confidenceIntervals.expectedInterviews[1].toFixed(1)}
+              </p>
+            )}
           </CardContent>
         </Card>
         <Card>
@@ -129,9 +151,68 @@ export function SimulationResults({ simulation }: SimulationResultsProps) {
               {simulation.expectedAcceptances.toFixed(1)}
             </p>
             <p className="text-sm text-slate-500 mt-1">Expected acceptances</p>
+            {simulation.confidenceIntervals?.expectedAcceptances && (
+              <p className="text-xs text-slate-400 mt-0.5">
+                80% CI: {simulation.confidenceIntervals.expectedAcceptances[0].toFixed(1)} - {simulation.confidenceIntervals.expectedAcceptances[1].toFixed(1)}
+              </p>
+            )}
           </CardContent>
         </Card>
       </div>
+
+      {/* Correlation Diagnostics (v2.0 feature) */}
+      {simulation.correlationDiagnostics && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Correlation Analysis</CardTitle>
+            <CardDescription>
+              How correlated your outcomes are across schools
+              {simulation.iterations && ` (${simulation.iterations.toLocaleString()} simulations)`}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="text-center p-4 bg-purple-50 rounded-lg">
+                <p className="text-2xl font-bold text-purple-600">
+                  {(simulation.correlationDiagnostics.meanPairwiseCorrelation * 100).toFixed(0)}%
+                </p>
+                <p className="text-sm text-slate-600">Mean Pairwise Correlation</p>
+                <p className="text-xs text-slate-400 mt-1">
+                  How linked your outcomes are across schools
+                </p>
+              </div>
+              <div className="text-center p-4 bg-blue-50 rounded-lg">
+                <p className="text-2xl font-bold text-blue-600">
+                  {simulation.correlationDiagnostics.acceptanceVariance.toFixed(2)}
+                </p>
+                <p className="text-sm text-slate-600">Acceptance Variance</p>
+                <p className="text-xs text-slate-400 mt-1">
+                  Spread in number of acceptances
+                </p>
+              </div>
+              {simulation.correlationDiagnostics.randomEffectSD !== undefined && (
+                <div className="text-center p-4 bg-slate-50 rounded-lg">
+                  <p className="text-2xl font-bold text-slate-700">
+                    {simulation.correlationDiagnostics.randomEffectSD.toFixed(2)}
+                  </p>
+                  <p className="text-sm text-slate-600">Random Effect SD</p>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Applicant-level variation (σ_u)
+                  </p>
+                </div>
+              )}
+            </div>
+            <div className="mt-4 p-4 bg-amber-50 rounded-lg">
+              <p className="text-sm text-amber-800">
+                <strong>Why outcomes are correlated:</strong> Unmeasured factors like
+                essay quality and interview performance affect all your applications
+                similarly. This creates &quot;all-or-nothing&quot; patterns where strong applicants
+                tend to get multiple acceptances while others may get none.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Acceptance Outcome Buckets */}
       <Card>

@@ -11,3 +11,4 @@ export { TwoStageProbability, TwoStageProbabilityCompact } from './TwoStageProba
 export { ExperienceSaturation, ExperienceCompact } from './ExperienceSaturation'
 export { UncertaintyBreakdown, UncertaintyBadge } from './UncertaintyBreakdown'
 export { DemographicEffects, DemographicCompact } from './DemographicEffects'
+export { NativeResultsDisplay } from './NativeResultsDisplay'

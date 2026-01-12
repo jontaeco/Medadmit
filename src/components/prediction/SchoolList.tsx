@@ -32,6 +32,12 @@ interface SchoolProbability {
     isInState: boolean
     missionAlignment: string[]
   }
+  // New v2.0 two-stage probability fields
+  pInterview?: number
+  pInterviewCI?: [number, number]
+  pAcceptGivenInterview?: number
+  pAcceptGivenInterviewCI?: [number, number]
+  pAcceptCI?: [number, number]
 }
 
 interface SchoolListProps {
@@ -241,14 +247,27 @@ function SchoolGrid({ schools, showTierHeaders = false }: { schools: SchoolProba
 }
 
 function SchoolCard({ schoolProb }: { schoolProb: SchoolProbability }) {
-  const { school, probability, fit, category } = schoolProb
+  const { school, probability, fit, category, pInterview, pAcceptGivenInterview, pAcceptCI } = schoolProb
   const colors = categoryColors[category]
   const acceptancePercent = Math.round(probability * 100)
 
-  // Calculate interview probability using school's actual interview-to-acceptance rate
-  const schoolRate = school.interviewToAcceptanceRate ?? 0.45
-  const interviewProb = Math.min(0.95, probability / schoolRate)
+  // Use v2.0 two-stage probabilities if available, otherwise fall back to legacy calculation
+  const hasNativeProbs = pInterview !== undefined && pAcceptGivenInterview !== undefined
+
+  let interviewProb: number
+  let condAcceptProb: number
+  if (hasNativeProbs) {
+    interviewProb = pInterview
+    condAcceptProb = pAcceptGivenInterview
+  } else {
+    // Legacy calculation: reverse-engineer from acceptance probability
+    const schoolRate = school.interviewToAcceptanceRate ?? 0.45
+    interviewProb = Math.min(0.95, probability / schoolRate)
+    condAcceptProb = schoolRate
+  }
+
   const interviewPercent = Math.round(interviewProb * 100)
+  const condAcceptPercent = Math.round(condAcceptProb * 100)
 
   return (
     <div
@@ -302,21 +321,50 @@ function SchoolCard({ schoolProb }: { schoolProb: SchoolProbability }) {
           <span className={`text-xs px-2 py-1 rounded ${colors.badge} capitalize`}>
             {category}
           </span>
-          {/* Interview and Acceptance chances side by side */}
-          <div className="flex gap-3 mt-2 justify-end">
-            <div className="text-center">
-              <p className="text-xl font-bold text-blue-600">{interviewPercent}%</p>
-              <p className="text-xs text-slate-500">interview</p>
+          {/* Two-stage probability display */}
+          {hasNativeProbs ? (
+            <div className="mt-2">
+              {/* Two-stage visualization */}
+              <div className="flex items-center gap-1 justify-end text-sm">
+                <span className="text-purple-600 font-semibold">{interviewPercent}%</span>
+                <span className="text-slate-400">×</span>
+                <span className="text-blue-600 font-semibold">{condAcceptPercent}%</span>
+                <span className="text-slate-400">=</span>
+                <span className="text-green-600 font-bold text-lg">{acceptancePercent}%</span>
+              </div>
+              <div className="flex items-center gap-1 justify-end text-xs text-slate-500 mt-0.5">
+                <span>P(Int)</span>
+                <span className="text-slate-300">×</span>
+                <span>P(Acc|Int)</span>
+                <span className="text-slate-300">=</span>
+                <span>P(Acc)</span>
+              </div>
+              {/* Confidence intervals if available */}
+              {pAcceptCI && (
+                <p className="text-xs text-slate-400 mt-1">
+                  80% CI: {Math.round(pAcceptCI[0] * 100)}% - {Math.round(pAcceptCI[1] * 100)}%
+                </p>
+              )}
             </div>
-            <div className="text-center">
-              <p className="text-xl font-bold text-green-600">{acceptancePercent}%</p>
-              <p className="text-xs text-slate-500">acceptance</p>
-            </div>
-          </div>
-          {school.interviewToAcceptanceRate && (
-            <p className="text-xs text-slate-400 mt-1">
-              {Math.round(school.interviewToAcceptanceRate * 100)}% int→acc rate
-            </p>
+          ) : (
+            <>
+              {/* Legacy display */}
+              <div className="flex gap-3 mt-2 justify-end">
+                <div className="text-center">
+                  <p className="text-xl font-bold text-blue-600">{interviewPercent}%</p>
+                  <p className="text-xs text-slate-500">interview</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-xl font-bold text-green-600">{acceptancePercent}%</p>
+                  <p className="text-xs text-slate-500">acceptance</p>
+                </div>
+              </div>
+              {school.interviewToAcceptanceRate && (
+                <p className="text-xs text-slate-400 mt-1">
+                  {Math.round(school.interviewToAcceptanceRate * 100)}% int→acc rate
+                </p>
+              )}
+            </>
           )}
         </div>
       </div>

@@ -3,6 +3,16 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 
+/**
+ * @deprecated This component uses the legacy 0-1000 scoring system.
+ * For the v2.0 model, use CompetitivenessGauge instead which displays
+ * the Competitiveness Score (C) on a -3 to +3 scale calibrated against
+ * AAMC admission data.
+ *
+ * This component is maintained for backward compatibility with legacy
+ * prediction format.
+ */
+
 // Score maximums - must match applicant-score.ts calculations
 const SCORE_MAXIMUMS = {
   total: 1000,
@@ -64,6 +74,11 @@ interface ScoreBreakdown {
 
 interface ScoreDisplayProps {
   score: ScoreBreakdown
+  /** Optional v2.0 competitiveness score - if provided, shows C score alongside legacy score */
+  competitiveness?: {
+    C: number
+    percentile: number
+  }
 }
 
 const tierColors = {
@@ -100,14 +115,20 @@ const warsLevelDescriptions = {
   E: 'Developing Applicant (<60) - Consider strengthening profile',
 }
 
-export function ScoreDisplay({ score }: ScoreDisplayProps) {
+export function ScoreDisplay({ score, competitiveness }: ScoreDisplayProps) {
   const scorePercentage = (score.totalScore / 1000) * 100
+
+  // Determine grid columns based on what scores are available
+  const hasWars = score.warsScore !== undefined && score.warsLevel
+  const hasCompetitiveness = competitiveness !== undefined
+  const cardCount = 1 + (hasWars ? 1 : 0) + (hasCompetitiveness ? 1 : 0)
+  const gridCols = cardCount === 1 ? 'md:grid-cols-1' : cardCount === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'
 
   return (
     <div className="space-y-6">
       {/* Score Cards Row */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Main Score Card */}
+      <div className={`grid grid-cols-1 ${gridCols} gap-4`}>
+        {/* Main Score Card (Legacy) */}
         <Card>
           <CardHeader className="text-center pb-2">
             <CardDescription>Your Applicant Score</CardDescription>
@@ -128,8 +149,45 @@ export function ScoreDisplay({ score }: ScoreDisplayProps) {
           </CardContent>
         </Card>
 
+        {/* Competitiveness Score Card (v2.0) */}
+        {hasCompetitiveness && (
+          <Card>
+            <CardHeader className="text-center pb-2">
+              <CardDescription>Competitiveness Score</CardDescription>
+              <CardTitle className="text-6xl font-bold">
+                {competitiveness!.C >= 0 ? '+' : ''}{competitiveness!.C.toFixed(2)}
+              </CardTitle>
+              <p className="text-slate-500">C score (v2.0)</p>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* Mini gauge */}
+              <div className="relative h-3 bg-slate-100 rounded-full overflow-hidden">
+                <div
+                  className="absolute top-0 bottom-0 bg-blue-500 rounded-full"
+                  style={{
+                    left: competitiveness!.C >= 0 ? '50%' : `${50 + (competitiveness!.C / 3) * 50}%`,
+                    width: `${Math.abs(competitiveness!.C / 3) * 50}%`,
+                  }}
+                />
+                <div className="absolute top-0 bottom-0 left-1/2 w-0.5 bg-slate-400" />
+              </div>
+              <div className="p-4 rounded-lg border text-center bg-blue-50 border-blue-200">
+                <p className="font-semibold text-blue-700">
+                  {competitiveness!.percentile}th Percentile
+                </p>
+                <p className="text-sm text-blue-600 mt-1">
+                  Calibrated against AAMC data
+                </p>
+              </div>
+              <p className="text-center text-xs text-slate-500">
+                Each +1.0 in C roughly doubles odds
+              </p>
+            </CardContent>
+          </Card>
+        )}
+
         {/* WARS Score Card */}
-        {score.warsScore !== undefined && score.warsLevel && (
+        {hasWars && (
           <Card>
             <CardHeader className="text-center pb-2">
               <CardDescription>WARS Level</CardDescription>
@@ -139,14 +197,14 @@ export function ScoreDisplay({ score }: ScoreDisplayProps) {
               </p>
             </CardHeader>
             <CardContent className="space-y-4">
-              <Progress value={(score.warsScore / 121) * 100} className="h-3" />
+              <Progress value={(score.warsScore! / 121) * 100} className="h-3" />
               <div
                 className={`p-4 rounded-lg border text-center ${
-                  warsLevelColors[score.warsLevel]
+                  warsLevelColors[score.warsLevel!]
                 }`}
               >
                 <p className="font-semibold">Level {score.warsLevel}</p>
-                <p className="text-sm mt-1">{warsLevelDescriptions[score.warsLevel]}</p>
+                <p className="text-sm mt-1">{warsLevelDescriptions[score.warsLevel!]}</p>
               </div>
               <p className="text-center text-xs text-slate-500">
                 WedgeDawg Applicant Rating System
