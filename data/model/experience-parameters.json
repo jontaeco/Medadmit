@@ -1,0 +1,60 @@
+{
+  "version": "1.0.0",
+  "description": "Experience saturation function parameters for the two-stage model",
+  "calibratedAt": "2026-01-12",
+  "model": "g(h) = alpha * (1 - exp(-h / tau))",
+  "domains": {
+    "clinical": {
+      "tau": 400,
+      "alpha": 0.30,
+      "minThreshold": 100,
+      "minThresholdType": "hard",
+      "description": "Clinical experience (patient contact hours)",
+      "notes": "Hard minimum of 100 hours filters applicants. Saturation around 400h reflects diminishing returns after substantial exposure."
+    },
+    "research": {
+      "tau": 500,
+      "alpha": 0.25,
+      "minThreshold": null,
+      "minThresholdType": "none",
+      "description": "Research experience (lab/project hours)",
+      "notes": "No minimum required. Higher tau reflects longer time to meaningful contribution. Research-intensive schools weight this more."
+    },
+    "volunteer": {
+      "tau": 200,
+      "alpha": 0.15,
+      "minThreshold": 50,
+      "minThresholdType": "soft",
+      "softPenalty": -0.05,
+      "description": "Non-clinical volunteer service hours",
+      "notes": "Soft minimum of 50 hours. Quick saturation reflects that extensive volunteering provides diminishing signal."
+    },
+    "shadowing": {
+      "tau": 50,
+      "alpha": 0.10,
+      "minThreshold": 20,
+      "minThresholdType": "soft",
+      "softPenalty": -0.03,
+      "description": "Physician shadowing hours",
+      "notes": "Very quick saturation - beyond 50h provides little additional signal. Soft minimum of 20h."
+    },
+    "leadership": {
+      "tau": 2,
+      "alpha": 0.15,
+      "minThreshold": null,
+      "minThresholdType": "none",
+      "description": "Leadership roles (count, not hours)",
+      "notes": "Measured in number of significant leadership positions. Quick saturation after 2 roles."
+    }
+  },
+  "publications": {
+    "firstAuthor": 0.15,
+    "middleAuthor": 0.08,
+    "poster": 0.04,
+    "diminishingFactor": 0.5,
+    "description": "Research productivity through publications",
+    "notes": "Each subsequent publication worth diminishingFactor of the previous. First-author peer-reviewed most valuable."
+  },
+  "totalExperienceMax": 1.0,
+  "notes": "Total experience contribution E_i is sum of all domain contributions plus publication contribution. All values in logit units."
+}
