@@ -1,3 +1,10 @@
+/**
+ * @deprecated Quick Prediction API
+ *
+ * This endpoint uses the legacy v1.0 scoring model with 0-1000 scores.
+ * For new integrations, use the main /api/predict endpoint with format: 'native'
+ * to get the v2.0 model with competitiveness scores and two-stage probabilities.
+ */
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { generateQuickPrediction, type LegacyApplicantInput as ApplicantInput } from '@/lib/model'

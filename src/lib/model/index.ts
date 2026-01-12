@@ -144,7 +144,13 @@ export type {
   ValidationReport,
 } from './validation';
 
-// Phase 10: Migration utilities (API compatibility layer)
+// =============================================================================
+// LEGACY MIGRATION UTILITIES - @deprecated
+// These functions provide backward compatibility with the v1.0 API format.
+// For new code, use generateNativePrediction() instead.
+// =============================================================================
+
+/** @deprecated Use generateNativePrediction() instead */
 export {
   generatePrediction,
   generateQuickPrediction,
@@ -155,7 +161,7 @@ export {
   convertToSchoolData,
 } from './migration';
 
-// Re-export types from migration
+/** @deprecated Legacy types for v1.0 API format */
 export type {
   LegacyApplicantInput,
   LegacyScoreBreakdown,
@@ -167,7 +173,15 @@ export type {
   ModalOutcome,
 } from './migration';
 
-// Native API format (v2.0)
+// =============================================================================
+// NATIVE v2.0 API - Preferred
+// Use these functions for new code. They provide:
+// - Competitiveness Score (C) on -3 to +3 scale
+// - Two-stage probability model (P(interview) × P(accept|interview))
+// - 80% credible intervals via parametric bootstrap
+// - Correlated Monte Carlo simulation
+// =============================================================================
+
 export {
   generateNativePrediction,
   generateQuickNativePrediction,

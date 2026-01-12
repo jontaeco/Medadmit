@@ -2,15 +2,20 @@
 
 import { useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import { ScoreDisplay } from '@/components/prediction/ScoreDisplay'
 import { SchoolList } from '@/components/prediction/SchoolList'
 import { SimulationResults } from '@/components/prediction/SimulationResults'
 import { SankeyDiagram } from '@/components/prediction/SankeyDiagram'
-import type { PerSchoolOutcome, ModalOutcome } from '@/lib/model'
+import { NativeResultsDisplay } from '@/components/prediction/NativeResultsDisplay'
+import type { PerSchoolOutcome, ModalOutcome, NativePredictionResponse } from '@/lib/model'
 
-interface ResultsDisplayProps {
+/**
+ * Legacy format props for backward compatibility
+ */
+interface LegacyResultsProps {
+  format?: 'legacy'
   score: {
     academicScore: number
     academicDetails: {
@@ -33,7 +38,7 @@ interface ResultsDisplayProps {
     totalScore: number
     percentile: number
     tier: 'exceptional' | 'strong' | 'competitive' | 'below-average' | 'low'
-    // WARS scoring
+    // WARS scoring (legacy)
     warsScore?: number
     warsLevel?: 'S' | 'A' | 'B' | 'C' | 'D' | 'E'
     warsBreakdown?: {
@@ -50,8 +55,11 @@ interface ResultsDisplayProps {
     }
   }
   schoolList: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     reach: any[]
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     target: any[]
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     safety: any[]
     summary: {
       totalSchools: number
@@ -97,14 +105,60 @@ interface ResultsDisplayProps {
   }
 }
 
-export function ResultsDisplay({
+/**
+ * Native v2.0 format props
+ */
+interface NativeResultsProps {
+  format: 'native'
+  prediction: NativePredictionResponse
+}
+
+type ResultsDisplayProps = LegacyResultsProps | NativeResultsProps
+
+/**
+ * Helper to detect if props are native format
+ */
+function isNativeFormat(props: ResultsDisplayProps): props is NativeResultsProps {
+  return props.format === 'native'
+}
+
+export function ResultsDisplay(props: ResultsDisplayProps) {
+  // Handle native v2.0 format
+  if (isNativeFormat(props)) {
+    return <NativeResultsDisplay prediction={props.prediction} />
+  }
+
+  // Legacy format handling
+  const {
+    score,
+    schoolList,
+    simulation,
+    globalProbability,
+    confidenceRange,
+    applicantProfile,
+  } = props
+
+  return <LegacyResultsDisplay
+    score={score}
+    schoolList={schoolList}
+    simulation={simulation}
+    globalProbability={globalProbability}
+    confidenceRange={confidenceRange}
+    applicantProfile={applicantProfile}
+  />
+}
+
+/**
+ * @deprecated Legacy results display - use NativeResultsDisplay for v2.0 format
+ */
+function LegacyResultsDisplay({
   score,
   schoolList,
   simulation,
   globalProbability,
   confidenceRange,
   applicantProfile,
-}: ResultsDisplayProps) {
+}: Omit<LegacyResultsProps, 'format'>) {
   const [activeTab, setActiveTab] = useState('overview')
 
   // Check if Sankey data is available

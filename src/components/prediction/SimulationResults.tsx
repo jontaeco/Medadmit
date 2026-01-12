@@ -1,5 +1,18 @@
 'use client'
 
+/**
+ * @deprecated This component displays legacy simulation results.
+ * While it has been updated to show some v2.0 correlation diagnostics,
+ * it's designed for the legacy API response format.
+ *
+ * For native v2.0 format, use NativeResultsDisplay which includes:
+ * - Full correlation diagnostics display
+ * - Per-school simulation rates
+ * - Proper 80% credible interval visualization
+ *
+ * This component is maintained for backward compatibility.
+ */
+
 import { useMemo } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {

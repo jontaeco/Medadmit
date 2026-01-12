@@ -1,5 +1,16 @@
 'use client'
 
+/**
+ * @deprecated This component uses legacy WARS tier system and simple probabilities.
+ * For the v2.0 model, use NativeResultsDisplay with TwoStageProbability which shows:
+ * - Two-stage probabilities: P(interview) × P(accept|interview)
+ * - 80% credible intervals for all probabilities
+ * - Four-tier categories: reach, target, likely, safety
+ * - Factor breakdown per school
+ *
+ * This component is maintained for backward compatibility with legacy format.
+ */
+
 import { useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'

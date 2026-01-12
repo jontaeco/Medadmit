@@ -185,7 +185,17 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    // Legacy format handling below
+    /**
+     * @deprecated Legacy format handling
+     * The legacy format (0-1000 score, WARS, simple probabilities) is deprecated.
+     * Use format: 'native' for the v2.0 model with:
+     * - Competitiveness Score (C) on -3 to +3 scale
+     * - Two-stage probability model (P(interview) × P(accept|interview))
+     * - 80% credible intervals
+     * - Correlated Monte Carlo simulation
+     */
+    console.warn('[Predict API] Legacy format is deprecated. Use format: "native" for v2.0 model.')
+
     // Convert to ApplicantInput type with defaults
     const applicantInput: ApplicantInput = {
       cumulativeGPA: applicant.cumulativeGPA,

@@ -1,7 +1,19 @@
 /**
- * Scoring Module Exports
+ * @deprecated Legacy Scoring Module
  *
- * Central export for the prediction and scoring engine.
+ * This module contains the legacy v1.0 scoring system including:
+ * - 0-1000 applicant score
+ * - WARS (WedgeDawg Applicant Rating System)
+ * - Simple probability calculations
+ *
+ * For new code, use the v2.0 model from '@/lib/model' instead:
+ * - Competitiveness Score (C) on -3 to +3 scale
+ * - Two-stage probability model (P(interview) × P(accept|interview))
+ * - Experience saturation functions
+ * - Correlated Monte Carlo simulation
+ * - 80% credible intervals
+ *
+ * This module is maintained for backward compatibility only.
  */
 
 // Types
