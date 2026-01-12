@@ -91,5 +91,37 @@ export type {
   SchoolSimulationStats,
 } from './monte-carlo';
 
+// Phase 8: Uncertainty quantification
+export {
+  sampleSchoolParams,
+  sampleCompetitiveness,
+  sampleExperienceEffect,
+  calculatePredictionSample,
+  bootstrapSchoolPrediction,
+  computeCredibleInterval,
+  computeVariance,
+  aggregateBootstrapSamples,
+  calculateSchoolPredictionWithUncertainty,
+  calculateListPredictionWithUncertainty,
+  decomposeUncertainty,
+  quickUncertaintyEstimate,
+  describeUncertainty,
+  formatConfidenceInterval,
+  DEFAULT_UNCERTAINTY_PARAMS,
+  DEFAULT_UNCERTAINTY_CONFIG,
+} from './uncertainty';
+
+// Re-export types from uncertainty
+export type {
+  ParameterUncertainty,
+  SchoolParameterUncertainty,
+  ModelUncertaintyParams,
+  UncertaintyConfig,
+  BootstrapSample,
+  SchoolPredictionWithUncertainty,
+  ListPredictionWithUncertainty,
+} from './uncertainty';
+
 // Future exports (to be implemented in subsequent phases):
-// export { calculateUncertainty } from './uncertainty';
+// Phase 9: Validation framework
+// Phase 10: Migration utilities
