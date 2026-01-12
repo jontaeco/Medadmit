@@ -166,3 +166,27 @@ export type {
   PerSchoolOutcome,
   ModalOutcome,
 } from './migration';
+
+// Native API format (v2.0)
+export {
+  generateNativePrediction,
+  generateQuickNativePrediction,
+  convertRequestToProfile,
+} from './native-prediction';
+
+// Re-export types from native prediction
+export type {
+  NativePredictionResponse,
+  NativePredictionRequest,
+  CompetitivenessResponse,
+  ExperienceResponse,
+  DemographicResponse,
+  SchoolPredictionResponse,
+  ListMetricsResponse,
+  UncertaintyResponse,
+  SimulationResponse,
+  PredictionOptions,
+  PredictionFormat,
+  CredibleInterval,
+  UncertaintyLevel,
+} from './api-types';

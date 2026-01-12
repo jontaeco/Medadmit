@@ -2,7 +2,13 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { getUser } from '@/lib/auth'
 import { createClient } from '@/lib/supabase/server'
-import { generatePrediction, type LegacyApplicantInput as ApplicantInput } from '@/lib/model'
+import {
+  generatePrediction,
+  generateNativePrediction,
+  type LegacyApplicantInput as ApplicantInput,
+  type NativePredictionRequest,
+  type PredictionFormat,
+} from '@/lib/model'
 import { RACE_ETHNICITY_CATEGORIES } from '@/types/data'
 
 // Validation schema for applicant input
@@ -70,6 +76,7 @@ const RequestSchema = z.object({
   applicant: ApplicantInputSchema,
   options: SchoolListOptionsSchema,
   profileId: z.string().optional(),
+  format: z.enum(['native', 'legacy']).optional().default('legacy'),
 })
 
 export async function POST(request: NextRequest) {
@@ -94,8 +101,91 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { applicant, options, profileId } = validationResult.data
+    const { applicant, options, profileId, format } = validationResult.data
 
+    // Handle native format
+    if (format === 'native') {
+      const nativeRequest: NativePredictionRequest = {
+        gpa: applicant.cumulativeGPA,
+        scienceGpa: applicant.scienceGPA,
+        mcat: applicant.mcatTotal,
+        mcatSections: {
+          cpbs: applicant.mcatCPBS,
+          cars: applicant.mcatCARS,
+          bbfl: applicant.mcatBBFL,
+          psbb: applicant.mcatPSBB,
+        },
+        state: applicant.stateOfResidence,
+        raceEthnicity: applicant.raceEthnicity ?? null,
+        isFirstGen: applicant.isFirstGeneration,
+        isDisadvantaged: applicant.isDisadvantaged,
+        isRural: applicant.isRuralBackground,
+        clinicalHours: applicant.clinicalHoursTotal,
+        clinicalHoursPaid: applicant.clinicalHoursPaid,
+        researchHours: applicant.researchHoursTotal,
+        volunteerHours: applicant.volunteerHoursNonClinical,
+        shadowingHours: applicant.shadowingHours,
+        leadershipCount: applicant.leadershipExperiences,
+        publicationCount: applicant.publicationCount,
+        teachingHours: applicant.teachingHours,
+        applicationYear: applicant.applicationYear,
+        isReapplicant: applicant.isReapplicant,
+        hasInstitutionalAction: applicant.hasInstitutionalAction,
+        hasCriminalHistory: applicant.hasCriminalHistory,
+      };
+
+      const nativePrediction = generateNativePrediction(nativeRequest, {
+        includeSimulation: true,
+        simulationIterations: 5000,
+      });
+
+      // Save to database (simplified for native format)
+      const supabase = await createClient()
+      const predictionData = {
+        profile_id: profileId || null,
+        user_id: user.id,
+        model_version: nativePrediction.metadata.modelVersion,
+        data_sources_version: '2.0.0',
+        input_snapshot: nativeRequest,
+        applicant_score: Math.round(500 + nativePrediction.competitiveness.C * 100), // Approximate legacy score
+        score_breakdown: {
+          competitiveness: nativePrediction.competitiveness,
+          experience: nativePrediction.experience,
+          demographics: nativePrediction.demographics,
+        },
+        global_acceptance_probability: nativePrediction.listMetrics.pAtLeastOne.mean,
+        global_acceptance_ci_lower: nativePrediction.listMetrics.pAtLeastOne.ci80[0],
+        global_acceptance_ci_upper: nativePrediction.listMetrics.pAtLeastOne.ci80[1],
+        school_results: {
+          total: nativePrediction.schools.length,
+          schools: nativePrediction.schools,
+        },
+        simulation_results: nativePrediction.simulation,
+        computed_at: nativePrediction.metadata.computedAt,
+        compute_time_ms: 100,
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data: savedPrediction, error: saveError } = await (supabase as any)
+        .from('prediction_results')
+        .insert(predictionData)
+        .select()
+        .single()
+
+      if (saveError) {
+        console.error('Failed to save native prediction:', saveError)
+        throw new Error('Failed to save prediction')
+      }
+
+      return NextResponse.json({
+        success: true,
+        format: 'native',
+        predictionId: savedPrediction.id,
+        prediction: nativePrediction,
+      })
+    }
+
+    // Legacy format handling below
     // Convert to ApplicantInput type with defaults
     const applicantInput: ApplicantInput = {
       cumulativeGPA: applicant.cumulativeGPA,
